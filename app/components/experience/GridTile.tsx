@@ -56,6 +56,12 @@ const GridTile = (props: GridTileProps) => {
     }
   });
 
+  const handleEscape = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      exitPortal(true);
+    }
+  };
+
   const portalInto = (e: React.MouseEvent) => {
     if (isActive || activePortalId) return;
     e.stopPropagation();
@@ -77,7 +83,7 @@ const GridTile = (props: GridTileProps) => {
         duration: 1,
       })
     }
-
+    document.body.addEventListener('keydown', handleEscape);
     gsap.to(portalRef.current, {
       blend: 1,
       duration: 0.5,
@@ -114,6 +120,7 @@ const GridTile = (props: GridTileProps) => {
         });
       }
     })
+    document.body.removeEventListener('keydown', handleEscape);
   }
 
   const fontProps: Partial<TextProps> = {
