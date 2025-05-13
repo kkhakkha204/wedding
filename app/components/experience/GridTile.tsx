@@ -76,10 +76,14 @@ const GridTile = (props: GridTileProps) => {
     if (!document.querySelector('.close')) {
       document.body.appendChild(div);
 
-      gsap.to(div, {
+      gsap.fromTo(div, {
+        scale: 0,
+        rotate: '-180deg',
+      },{
         opacity: 1,
         zIndex: 10,
         transform: 'rotateX(0deg)',
+        scale: 1,
         duration: 1,
       })
     }
@@ -112,7 +116,7 @@ const GridTile = (props: GridTileProps) => {
 
     // Remove the div from the dom
     gsap.to(document.querySelector('.close'), {
-      transform: 'rotateX(90deg)',
+      scale: 0,
       duration: 0.5,
       onComplete: () => {
         document.querySelectorAll('.close').forEach((el) => {
