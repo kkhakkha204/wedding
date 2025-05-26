@@ -96,8 +96,8 @@ const ProjectTile = ({ project, index, position, rotation, activeId, onClick }: 
       position={position}
       rotation={rotation}
       onClick={onClick}
-      onPointerOver={() => !isMobile && setHovered(true)}
-      onPointerOut={() => !isMobile && setHovered(false)}>
+      onPointerOver={() => !isMobile && isProjectSectionActive && setHovered(true)}
+      onPointerOut={() => !isMobile && isProjectSectionActive && setHovered(false)}>
       <group ref={projectRef}>
         <mesh>
           <planeGeometry args={[4.2, 2, 1]} />
