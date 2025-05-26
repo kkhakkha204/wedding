@@ -3,16 +3,14 @@ import { isMobile } from "react-device-detect";
 import ProjectTile from "./ProjectTile";
 
 import { PROJECTS } from "@constants";
-import { usePortalStore, useScrollHintStore } from "@stores";
+import { usePortalStore } from "@stores";
 
 const ProjectsCarousel = () => {
   const [activeId, setActiveId] = useState<number | null>(null);
-  const { showScrollHint, setScrollHint } = useScrollHintStore();
   const isActive = usePortalStore((state) => state.activePortalId === "projects");
 
   useEffect(() => {
     if (!isActive) setActiveId(null);
-    else if (!showScrollHint) setScrollHint(true, 'PAN');
   }, [isActive]);
 
   const onClick = (id: number) => {

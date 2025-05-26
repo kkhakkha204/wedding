@@ -1,11 +1,34 @@
 import gsap from "gsap";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { useScrollHintStore } from "@stores";
+import { usePortalStore, useScrollStore } from "@stores";
 
 export const ScrollHint = () => {
-  const { showScrollHint, hintText } = useScrollHintStore();
+  const [hintText, setHintText] = useState('');
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  const portal = usePortalStore((state) => state.activePortalId);
+  const scrollProgress = useScrollStore((state) => state.scrollProgress);
+
+  // Show 'Scroll' for Hero and work portals, 'Pan' for Projects portal.
+  useEffect(() => {
+    if (!portal) {
+      if (scrollProgress === 0) {
+        setHintText('SCROLL');
+        setShowScrollHint(true);
+      } else {
+        setShowScrollHint(false);
+      }
+    } else {
+      if (portal === 'work') {
+        setHintText('SCROLL');
+        setShowScrollHint(scrollProgress === 0);
+      } else {
+        setHintText('PAN');
+        setShowScrollHint(true);
+      }
+    }
+  }, [portal, scrollProgress]);
 
   useEffect(() => {
     if (showScrollHint) {

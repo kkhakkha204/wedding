@@ -1,6 +1,6 @@
 import { Box, Edges, Line, Text, TextProps } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { usePortalStore, useScrollHintStore } from "@stores";
+import { usePortalStore } from "@stores";
 import gsap from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -65,7 +65,6 @@ const TimelinePoint = ({ point, diff }: { point: WorkTimelinePoint, diff: number
 const Timeline = ({ progress }: { progress: number }) => {
   const { camera } = useThree();
   const isActive = usePortalStore((state) => state.activePortalId === 'work');
-  const { showScrollHint, setScrollHint } = useScrollHintStore();
   const timeline = useMemo(() => WORK_TIMELINE, []);
 
   const curve = useMemo(() => new THREE.CatmullRomCurve3(timeline.map(p => p.point), false), [timeline]);
@@ -121,13 +120,6 @@ const Timeline = ({ progress }: { progress: number }) => {
 
     return () => clearInterval(intervalRef.current!);
   }, [isActive]);
-
-  useEffect(() => {
-    if (isActive) {
-      if (!showScrollHint && progress === 0) setScrollHint(true, 'SCROLL');
-      if (showScrollHint && progress > 0) setScrollHint(false);
-    }
-  }, [isActive, progress]);
 
   return (
     <group position={[0, -0.1, -0.1]}>

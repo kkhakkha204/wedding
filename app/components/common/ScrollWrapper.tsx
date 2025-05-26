@@ -5,13 +5,13 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { isMobile } from "react-device-detect";
 import * as THREE from "three";
 
-import { usePortalStore, useScrollHintStore } from "@stores";
+import { usePortalStore, useScrollStore } from "@stores";
 
 const ScrollWrapper = (props: { children: React.ReactNode | React.ReactNode[]}) => {
   const { camera } = useThree();
   const data = useScroll();
   const isActive = usePortalStore((state) => !!state.activePortalId);
-  const { showScrollHint, setScrollHint } = useScrollHintStore();
+  const setScrollProgress = useScrollStore((state) => state.setScrollProgress);
 
   useFrame((state, delta) => {
     if (data) {
@@ -23,20 +23,13 @@ const ScrollWrapper = (props: { children: React.ReactNode | React.ReactNode[]}) 
         camera.rotation.x = THREE.MathUtils.damp(camera.rotation.x, -0.5 * Math.PI * a, 5, delta);
         camera.position.y = THREE.MathUtils.damp(camera.position.y, -37 * b, 7, delta);
         camera.position.z = THREE.MathUtils.damp(camera.position.z, 5 + 10 * d, 7, delta);
+
+        setScrollProgress(data.range(0, 1));
       }
 
       // Move camera slightly on mouse movement.
       if (!isMobile && !isActive) {
         camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, -(state.pointer.x * Math.PI) / 90, 0.05);
-      }
-
-      // Show scroll hint on the first screen when scroll is at 0.
-      if (!isActive) {
-        if (a === 0 && !showScrollHint) {
-          setScrollHint(true, 'SCROLL');
-        } else if (a > 0 && showScrollHint) {
-          setScrollHint(false);
-        }
       }
     }
   });
