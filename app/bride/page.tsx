@@ -615,10 +615,7 @@ export default function GroomPage() {
                         width={192}
                         height={192}
                         className="w-full h-full object-contain p-2"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
-                        }}
+                        
                       />
                       {/* Fallback */}
                       <div className="hidden w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 items-center justify-center text-gray-500 text-sm text-center rounded-xl">
