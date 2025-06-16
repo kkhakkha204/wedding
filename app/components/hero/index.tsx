@@ -21,20 +21,26 @@ const Hero = () => {
         duration: 1,
         // delay: 1.5,
       }, {
-        y: 0,
+        y: 1.4,
         duration: 3
       });
     }
   }, [progress]);
 
   const fontProps = {
-    font: "./soria-font.ttf",
-    fontSize: 1.2,
+    font: "./a2.otf",
+    fontSize: 0.9,
+  };
+
+  const subFontProps = {
+    font: "./mon.ttf",
+    fontSize: 0.6,
   };
 
   return (
     <>
-      <Text position={[0, 2, -10]} {...fontProps} ref={titleRef}>Hi, I am Mohit Virli.</Text>
+      <Text position={[0, 2.7, -10]} {...fontProps} ref={titleRef}>Xin chào, Tụi mình sắp cưới rồi !</Text>
+      <Text position={[0, 2, -10]} {...subFontProps} ref={titleRef}>(Bạn vui lòng kéo xuống nhé)</Text>
       <CloudContainer/>
       <group position={[0, -25, 5.69]}>
         <pointLight castShadow position={[1, 1, -2.5]} intensity={60} distance={10}/>

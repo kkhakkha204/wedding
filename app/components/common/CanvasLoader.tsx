@@ -9,7 +9,6 @@ import { isMobile } from "react-device-detect";
 
 import { useThemeStore } from "@stores";
 
-import AwwardsBadge from "./AwwardsBadge";
 import Preloader from "./Preloader";
 import ProgressLoader from "./ProgressLoader";
 import { ScrollHint } from "./ScrollHint";
@@ -17,7 +16,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 // import {Perf} from "r3f-perf"
 
 const CanvasLoader = (props: { children: React.ReactNode }) => {
-  const ref= useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const backgroundColor = useThemeStore((state) => state.color);
   const { progress } = useProgress();
@@ -31,6 +30,24 @@ const CanvasLoader = (props: { children: React.ReactNode }) => {
     overflow: "hidden",
   });
 
+  // Function to create gradient based on the theme color
+  const createGradient = (color: string) => {
+    // Create a gradient that transitions from the theme color to a darker/lighter variant
+    return `linear-gradient(180deg, ${adjustColorBrightness(color, 20)} 0%, ${adjustColorBrightness(color, 0)} 50%, ${adjustColorBrightness(color, -30)} 100%)`;
+  };
+
+  // Helper function to adjust color brightness
+  const adjustColorBrightness = (hex: string, percent: number) => {
+    const num = parseInt(hex.replace("#", ""), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = (num >> 16) + amt;
+    const G = (num >> 8 & 0x00FF) + amt;
+    const B = (num & 0x0000FF) + amt;
+    return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 +
+      (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 +
+      (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1);
+  };
+
   useEffect(() => {
     if (!isMobile) {
       const borderStyle = {
@@ -38,7 +55,7 @@ const CanvasLoader = (props: { children: React.ReactNode }) => {
         width: 'calc(100% - 2rem)',
         height: 'calc(100% - 2rem)',
       };
-      setCanvasStyle({ ...canvasStyle, ...borderStyle})
+      setCanvasStyle({ ...canvasStyle, ...borderStyle })
     }
   }, [isMobile]);
 
@@ -49,23 +66,16 @@ const CanvasLoader = (props: { children: React.ReactNode }) => {
   }, [progress]);
 
   useGSAP(() => {
+    const gradient = createGradient(backgroundColor);
+    
     gsap.to(ref.current, {
-      backgroundColor: backgroundColor,
+      background: gradient,
       duration: 1,
     });
-    gsap.to(canvasRef.current, {
-      backgroundColor: backgroundColor,
-      duration: 1,
-      ...noiseOverlayStyle,
-    });
+    
   }, [backgroundColor]);
 
-  const noiseOverlayStyle = {
-    backgroundBlendMode: "soft-light",
-    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E\")",
-    backgroundRepeat: "repeat",
-    backgroundSize: "100px",
-  };
+  
 
   return (
     <div className="h-[100dvh] wrapper relative">
@@ -86,11 +96,10 @@ const CanvasLoader = (props: { children: React.ReactNode }) => {
 
             <Preload all />
           </Suspense>
-          <AdaptiveDpr pixelated/>
+          <AdaptiveDpr pixelated />
         </Canvas>
         <ProgressLoader progress={progress} />
       </div>
-      <AwwardsBadge />
       <ThemeSwitcher />
       <ScrollHint />
     </div>

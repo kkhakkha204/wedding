@@ -97,7 +97,7 @@ const ProgressLoader = ({ progress }: { progress: number }) => {
           height={rectHeight} // Use calculated rectangle height
           fill="none"
           strokeWidth={strokeWidth}
-          stroke="rgba(0, 0, 0, 0.2)"
+          stroke="rgba(0, 0, 0, 0)"
           // className={bgColor} // Apply ba ckground color class
         />
         {/* Progress indicator rectangle */}
