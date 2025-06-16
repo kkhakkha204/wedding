@@ -1,5 +1,5 @@
 import { Text, useScroll, useTexture } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { usePortalStore } from "@stores";
 import { useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
@@ -13,7 +13,6 @@ const Experience = () => {
   const leftTitleRef = useRef<THREE.Mesh>(null);
   const rightTitleRef = useRef<THREE.Mesh>(null);
   const data = useScroll();
-  const { camera, scene } = useThree();
   const isActive = usePortalStore((state) => !!state.activePortalId);
   const [isTransitioning, setIsTransitioning] = useState(false);
   
@@ -55,7 +54,11 @@ const Experience = () => {
       titleRef.current.children.forEach((text, i) => {
         const y = Math.max(Math.min((1 - d) * (10 - i), 10), 0.5);
         text.position.y = THREE.MathUtils.damp(text.position.y, y, 7, delta);
-        (text as any).fillOpacity = e;
+        
+        // Type-safe way to access fillOpacity
+        if ('fillOpacity' in text && typeof text.fillOpacity === 'number') {
+          text.fillOpacity = e;
+        }
       });
     }
 

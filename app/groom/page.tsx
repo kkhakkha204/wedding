@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Home,MapPinHouse } from 'lucide-react'
-
+import { Home, MapPinHouse } from 'lucide-react'
+import Image from 'next/image';
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -19,7 +19,7 @@ export default function GroomPage() {
   const backgroundRef = useRef<HTMLDivElement>(null)
   const loadingRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLDivElement>(null)
-  
+
   const [currentSection, setCurrentSection] = useState(0)
   const [showQR, setShowQR] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
@@ -70,7 +70,7 @@ export default function GroomPage() {
       setLoadingProgress(prev => {
         if (prev >= 100) {
           clearInterval(loadingTimer)
-          
+
           // Start fade out animation after loading completes
           setTimeout(() => {
             if (loadingRef.current) {
@@ -80,7 +80,7 @@ export default function GroomPage() {
                 ease: "power2.inOut",
                 onComplete: () => {
                   setIsLoading(false)
-                  
+
                   // Show main content after loading completes
                   if (containerRef.current) {
                     gsap.set(containerRef.current, { visibility: 'visible' })
@@ -94,7 +94,7 @@ export default function GroomPage() {
               })
             }
           }, 500)
-          
+
           return 100
         }
         return prev + Math.random() * 15 + 5
@@ -122,7 +122,7 @@ export default function GroomPage() {
     document.documentElement.style.overflow = 'hidden'
 
     const sections = [section1Ref.current, section2Ref.current, section3Ref.current]
-    
+
     // Initialize sections position - only show after loading
     sections.forEach((section, index) => {
       if (section) {
@@ -148,10 +148,10 @@ export default function GroomPage() {
     // Title animation - only show after loading
     if (titleRef.current) {
       gsap.set(titleRef.current, { opacity: 0, y: -50, visibility: 'visible' })
-      gsap.to(titleRef.current, { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1.5, 
+      gsap.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
         delay: 1.2,
         ease: "power2.out"
       })
@@ -172,7 +172,7 @@ export default function GroomPage() {
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 30
       const y = (e.clientY / window.innerHeight - 0.5) * 30
-      
+
       if (backgroundRef.current) {
         gsap.to(backgroundRef.current, {
           x: -x,
@@ -217,18 +217,18 @@ export default function GroomPage() {
 
     let lastScrollTime = 0
     const throttleDelay = 500 // 1 second throttle
-    
+
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
-      
+
       const now = Date.now()
       if (now - lastScrollTime < throttleDelay || isScrolling) return
-      
+
       lastScrollTime = now
-      
+
       const direction = e.deltaY > 0 ? 1 : -1
       const newSection = Math.max(0, Math.min(2, currentSection + direction))
-      
+
       if (newSection !== currentSection) {
         changeSection(newSection)
       }
@@ -237,23 +237,23 @@ export default function GroomPage() {
     // Touch handling for mobile
     let touchStartY = 0
     let touchEndY = 0
-    
+
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY = e.changedTouches[0].screenY
     }
-    
+
     const handleTouchEnd = (e: TouchEvent) => {
       const now = Date.now()
       if (now - lastScrollTime < throttleDelay || isScrolling) return
-      
+
       touchEndY = e.changedTouches[0].screenY
       const swipeDistance = touchStartY - touchEndY
-      
+
       if (Math.abs(swipeDistance) > 50) { // Minimum swipe distance
         lastScrollTime = now
         const direction = swipeDistance > 0 ? 1 : -1
         const newSection = Math.max(0, Math.min(2, currentSection + direction))
-        
+
         if (newSection !== currentSection) {
           changeSection(newSection)
         }
@@ -270,7 +270,7 @@ export default function GroomPage() {
     window.addEventListener('touchend', handleTouchEnd, { passive: false })
     window.addEventListener('scroll', preventScroll, { passive: false })
     window.addEventListener('touchmove', preventScroll, { passive: false })
-    
+
     return () => {
       window.removeEventListener('wheel', handleWheel)
       window.removeEventListener('touchstart', handleTouchStart)
@@ -282,11 +282,11 @@ export default function GroomPage() {
 
   const changeSection = (newSection: number) => {
     setIsScrolling(true)
-    
+
     const sections = [section1Ref.current, section2Ref.current, section3Ref.current]
     const currentSectionRef = sections[currentSection]
     const newSectionRef = sections[newSection]
-    
+
     const tl = gsap.timeline({
       onComplete: () => {
         setIsScrolling(false)
@@ -304,7 +304,7 @@ export default function GroomPage() {
       }, 0)
       tl.set(currentSectionRef, { zIndex: 20 }, 0.3)
     }
-    
+
     // Fade in new section
     if (newSectionRef) {
       const newElements = newSectionRef.querySelectorAll('.fade-element')
@@ -317,7 +317,7 @@ export default function GroomPage() {
         ease: "power2.inOut"
       }, 0.4)
     }
-    
+
     setCurrentSection(newSection)
   }
 
@@ -335,7 +335,7 @@ export default function GroomPage() {
     window.location.href = '/'; // hoặc window.history.back();
   };
 
-return (
+  return (
     <>
       <style jsx global>{`
         @font-face {
@@ -400,9 +400,9 @@ return (
       to { transform: rotate(360deg); }
     }
       `}</style>
-{/* Loading Screen */}
+      {/* Loading Screen */}
       {isLoading && (
-        <div 
+        <div
           ref={loadingRef}
           className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[100]"
         >
@@ -410,7 +410,7 @@ return (
           {/* Progress Bar Container */}
           <div className="w-64 sm:w-80 md:w-96 lg:w-[500px] mb-6">
             <div className="relative h-1 bg-white/20 rounded-full overflow-hidden">
-              <div 
+              <div
                 ref={progressBarRef}
                 className="absolute left-0 top-0 h-full bg-gradient-to-r from-white via-white/90 to-white rounded-full loading-shimmer"
                 style={{ width: `${loadingProgress}%` }}
@@ -419,13 +419,13 @@ return (
           </div>
         </div>
       )}
-      <div 
+      <div
         ref={containerRef}
         className="relative w-full h-screen overflow-hidden bg-black"
         style={{ touchAction: 'none' }}
-     >
+      >
         {/* Background with parallax */}
-        <div 
+        <div
           ref={backgroundRef}
           className="absolute inset-0 w-[110%] h-[110%] -top-[5%] -left-[5%]"
           style={{
@@ -454,7 +454,7 @@ return (
         </div>
 
         {/* Title - Responsive */}
-        <div 
+        <div
           ref={titleRef}
           className="absolute top-12 sm:top-16 md:top-24 lg:top-32 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
         >
@@ -464,7 +464,7 @@ return (
         </div>
 
         {/* Section 1 - Responsive */}
-        <div 
+        <div
           ref={section1Ref}
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 30 }}
@@ -483,9 +483,9 @@ return (
             {/* Rectangle - Responsive size */}
             <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
             </div>
-            
+
             {/* Overlay Image - Responsive positioning */}
-            <div 
+            <div
               className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
@@ -499,7 +499,7 @@ return (
         </div>
 
         {/* Section 2 - Responsive */}
-        <div 
+        <div
           ref={section2Ref}
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
@@ -508,147 +508,149 @@ return (
             {/* Centered Text */}
             <div className="absolute left-1/2 top-[-80px] sm:top-1/3 transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-[22px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font text-center whitespace-nowrap">
-                Chạm vào bông hoa<br/>để mừng cưới cho tụi mình nha.<br/>Thank Youu!
+                Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br />Thank Youu!
               </p>
-              
+
             </div>
 
 
             {/* Rectangle */}
-<div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
-  
-  {/* Animated Flower */}
-  <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
-    <svg 
-      width="60" 
-      height="60" 
-      viewBox="0 0 100 100"
-      style={{
-        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
-      }}
-    >
-      {/* Outer petals layer */}
-      <g style={{ 
-        transformOrigin: '50px 50px',
-        animation: 'slowRotate 20s linear infinite'
-      }}>
-        {Array.from({length: 8}, (_, i) => (
-          <ellipse 
-            key={i}
-            cx="50" 
-            cy="25" 
-            rx="8" 
-            ry="20" 
-            fill="#a8d5a8"
-            opacity="0.6"
-            transform={`rotate(${i * 45} 50 50)`}
-            style={{ borderRadius: '50%' }}
-          />
-        ))}
-      </g>
-      
-      {/* Main petals layer */}
-      <g style={{ 
-        transformOrigin: '50px 50px',
-        animation: 'slowRotate 25s linear infinite reverse'
-      }}>
-        {Array.from({length: 12}, (_, i) => (
-          <ellipse 
-            key={i}
-            cx="50" 
-            cy="28" 
-            rx="7" 
-            ry="18" 
-            fill="#ffffff"
-            opacity="0.8"
-            transform={`rotate(${i * 30} 50 50)`}
-            style={{ borderRadius: '50%' }}
-          />
-        ))}
-      </g>
-      
-      {/* Inner petals layer */}
-      <g style={{ 
-        transformOrigin: '50px 50px',
-        animation: 'slowRotate 15s linear infinite'
-      }}>
-        {Array.from({length: 6}, (_, i) => (
-          <ellipse 
-            key={i}
-            cx="50" 
-            cy="32" 
-            rx="6" 
-            ry="14" 
-            fill="#7fc97f"
-            opacity="0.7"
-            transform={`rotate(${i * 60} 50 50)`}
-            style={{ borderRadius: '50%' }}
-          />
-        ))}
-      </g>
-      
-      {/* Flower center */}
-      <circle cx="50" cy="50" r="10" fill="#ffffff" opacity="0.9"/>
-      <circle cx="50" cy="50" r="6" fill="#90ee90" opacity="0.8"/>
-      <circle cx="50" cy="50" r="3" fill="#ffffff" opacity="0.9"/>
-    </svg>
-  </div>
+            <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
-  {showQR && (
-    <div className="absolute inset-0 flex items-center justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
-      {/* Backdrop overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-20 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
-      
-      {/* QR Container */}
-      <div className="relative bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
-        {/* Decorative corners */}
-        <div className="absolute -top-2 -left-2 w-6 h-6 border-l-4 border-t-4 border-[#7fc97f] rounded-tl-lg"></div>
-        <div className="absolute -top-2 -right-2 w-6 h-6 border-r-4 border-t-4 border-[#7fc97f] rounded-tr-lg"></div>
-        <div className="absolute -bottom-2 -left-2 w-6 h-6 border-l-4 border-b-4 border-[#7fc97f] rounded-bl-lg"></div>
-        <div className="absolute -bottom-2 -right-2 w-6 h-6 border-r-4 border-b-4 border-[#7fc97f] rounded-br-lg"></div>
-        
-        {/* QR Code */}
-        <div className="w-40 h-40 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
-          <img 
-            src="/qrkha1.PNG" 
-            alt="QR Code" 
-            className="w-full h-full object-contain p-2"
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.nextSibling.style.display = 'flex';
-            }}
-          />
-          {/* Fallback */}
-          <div className="hidden w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 items-center justify-center text-gray-500 text-sm text-center rounded-xl">
-            <div className="space-y-2">
-              <div className="w-8 h-8 bg-gray-400 rounded mx-auto opacity-50"></div>
-              <div>QR Code</div>
+              {/* Animated Flower */}
+              <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
+                <svg
+                  width="60"
+                  height="60"
+                  viewBox="0 0 100 100"
+                  style={{
+                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                  }}
+                >
+                  {/* Outer petals layer */}
+                  <g style={{
+                    transformOrigin: '50px 50px',
+                    animation: 'slowRotate 20s linear infinite'
+                  }}>
+                    {Array.from({ length: 8 }, (_, i) => (
+                      <ellipse
+                        key={i}
+                        cx="50"
+                        cy="25"
+                        rx="8"
+                        ry="20"
+                        fill="#a8d5a8"
+                        opacity="0.6"
+                        transform={`rotate(${i * 45} 50 50)`}
+                        style={{ borderRadius: '50%' }}
+                      />
+                    ))}
+                  </g>
+
+                  {/* Main petals layer */}
+                  <g style={{
+                    transformOrigin: '50px 50px',
+                    animation: 'slowRotate 25s linear infinite reverse'
+                  }}>
+                    {Array.from({ length: 12 }, (_, i) => (
+                      <ellipse
+                        key={i}
+                        cx="50"
+                        cy="28"
+                        rx="7"
+                        ry="18"
+                        fill="#ffffff"
+                        opacity="0.8"
+                        transform={`rotate(${i * 30} 50 50)`}
+                        style={{ borderRadius: '50%' }}
+                      />
+                    ))}
+                  </g>
+
+                  {/* Inner petals layer */}
+                  <g style={{
+                    transformOrigin: '50px 50px',
+                    animation: 'slowRotate 15s linear infinite'
+                  }}>
+                    {Array.from({ length: 6 }, (_, i) => (
+                      <ellipse
+                        key={i}
+                        cx="50"
+                        cy="32"
+                        rx="6"
+                        ry="14"
+                        fill="#7fc97f"
+                        opacity="0.7"
+                        transform={`rotate(${i * 60} 50 50)`}
+                        style={{ borderRadius: '50%' }}
+                      />
+                    ))}
+                  </g>
+
+                  {/* Flower center */}
+                  <circle cx="50" cy="50" r="10" fill="#ffffff" opacity="0.9" />
+                  <circle cx="50" cy="50" r="6" fill="#90ee90" opacity="0.8" />
+                  <circle cx="50" cy="50" r="3" fill="#ffffff" opacity="0.9" />
+                </svg>
+              </div>
+
+              {showQR && (
+                <div className="absolute inset-0 flex items-center justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
+                  {/* Backdrop overlay */}
+                  <div className="absolute inset-0 bg-black bg-opacity-20 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
+
+                  {/* QR Container */}
+                  <div className="relative bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
+                    {/* Decorative corners */}
+                    <div className="absolute -top-2 -left-2 w-6 h-6 border-l-4 border-t-4 border-[#7fc97f] rounded-tl-lg"></div>
+                    <div className="absolute -top-2 -right-2 w-6 h-6 border-r-4 border-t-4 border-[#7fc97f] rounded-tr-lg"></div>
+                    <div className="absolute -bottom-2 -left-2 w-6 h-6 border-l-4 border-b-4 border-[#7fc97f] rounded-bl-lg"></div>
+                    <div className="absolute -bottom-2 -right-2 w-6 h-6 border-r-4 border-b-4 border-[#7fc97f] rounded-br-lg"></div>
+
+                    {/* QR Code */}
+                    <div className="w-40 h-40 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
+                      <Image
+                        src="/qrkha1.PNG"
+                        alt="QR Code"
+                        width={192}
+                        height={192}
+                        className="w-full h-full object-contain p-2"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      {/* Fallback */}
+                      <div className="hidden w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 items-center justify-center text-gray-500 text-sm text-center rounded-xl">
+                        <div className="space-y-2">
+                          <div className="w-8 h-8 bg-gray-400 rounded mx-auto opacity-50"></div>
+                          <div>QR Code</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Elegant text */}
+                    <div className="mt-4 text-center">
+                      <p className="text-gray-600 text-sm font-medium">Scan để mừng cưới</p>
+                      <p className="text-gray-400 text-xs mt-1">Thank you ♡</p>
+                    </div>
+
+                    {/* Subtle decoration */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+                      <div className="absolute top-2 left-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-30"></div>
+                      <div className="absolute top-4 right-3 w-1 h-1 bg-[#7fc97f] rounded-full opacity-40"></div>
+                      <div className="absolute bottom-3 left-4 w-1.5 h-1.5 bg-[#90ee90] rounded-full opacity-20"></div>
+                      <div className="absolute bottom-2 right-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-25"></div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+
             </div>
-          </div>
-        </div>
-        
-        {/* Elegant text */}
-        <div className="mt-4 text-center">
-          <p className="text-gray-600 text-sm font-medium">Scan để mừng cưới</p>
-          <p className="text-gray-400 text-xs mt-1">Thank you ♡</p>
-        </div>
-        
-        {/* Subtle decoration */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
-          <div className="absolute top-2 left-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-30"></div>
-          <div className="absolute top-4 right-3 w-1 h-1 bg-[#7fc97f] rounded-full opacity-40"></div>
-          <div className="absolute bottom-3 left-4 w-1.5 h-1.5 bg-[#90ee90] rounded-full opacity-20"></div>
-          <div className="absolute bottom-2 right-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-25"></div>
-        </div>
-      </div>
-    </div>
-  )}
-  
-  
-</div>
-            
+
             {/* Overlay Image - Responsive positioning */}
-            <div 
+            <div
               className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
@@ -660,7 +662,7 @@ return (
             />
 
             {/* Click Area */}
-            <div 
+            <div
               className="absolute top-0 left-1/2 transform -translate-x-1/2 w-44 sm:w-60 md:w-76 lg:w-80 h-full cursor-pointer transition-all duration-500 hover:scale-105 fade-element"
               onClick={handleSection2Click}
               style={{ zIndex: 45 }}
@@ -669,7 +671,7 @@ return (
         </div>
 
         {/* Section 3 - Responsive */}
-        <div 
+        <div
           ref={section3Ref}
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
@@ -689,12 +691,12 @@ return (
 
             {/* Rectangle */}
             <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
-              <p className="text-[#272727] text-base sm:text-base md:text-lg lg:text-xl mt-4 sm:mb-4 drop-shadow-lg text-center body-font">Ấn vào đây để<br/>xem địa điểm lễ cưới.</p>
+              <p className="text-[#272727] text-base sm:text-base md:text-lg lg:text-xl mt-4 sm:mb-4 drop-shadow-lg text-center body-font">Ấn vào đây để<br />xem địa điểm lễ cưới.</p>
               <MapPinHouse className="w-5 h-5 sm:w-12 h-12 md:w-16 h-16 text-[#272727] mt-2 sm:mb-4 drop-shadow-lg" />
             </div>
-            
+
             {/* Overlay Image - Responsive positioning */}
-            <div 
+            <div
               className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
@@ -706,7 +708,7 @@ return (
             />
 
             {/* Click Area */}
-            <div 
+            <div
               className="absolute top-0 left-1/2 transform -translate-x-1/2 w-44 sm:w-60 md:w-76 lg:w-80 h-full cursor-pointer transition-all duration-500 hover:scale-105 fade-element"
               onClick={handleSection3Click}
               style={{ zIndex: 45 }}
@@ -719,9 +721,8 @@ return (
           {[0, 1, 2].map((index) => (
             <div
               key={index}
-              className={`w-2 h-2 sm:w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${
-                currentSection === index ? 'bg-white scale-125 shadow-lg' : 'bg-white/50'
-              }`}
+              className={`w-2 h-2 sm:w-3 h-3 rounded-full transition-all duration-300 cursor-pointer ${currentSection === index ? 'bg-white scale-125 shadow-lg' : 'bg-white/50'
+                }`}
               onClick={() => changeSection(index)}
             />
           ))}
