@@ -42,7 +42,7 @@ const Experience = () => {
   useFrame((state, delta) => {
     const d = data.range(0.8, 0.2);
     const e = data.range(0.7, 0.2);
-    const scrollProgress = data.scroll.current;
+    const scrollProgress = data.offset;
     const time = state.clock.elapsedTime;
 
     if (groupRef.current && !isActive) {
