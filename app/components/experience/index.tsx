@@ -3,9 +3,11 @@ import { useFrame } from "@react-three/fiber";
 import { usePortalStore } from "@stores";
 import { useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { useRouter } from "next/navigation"; // Import useRouter từ next/navigation
 import * as THREE from 'three';
 
 const Experience = () => {
+  const router = useRouter(); // Khởi tạo router
   const titleRef = useRef<THREE.Group>(null);
   const groupRef = useRef<THREE.Group>(null);
   const leftImageRef = useRef<THREE.Mesh>(null);
@@ -224,8 +226,12 @@ const Experience = () => {
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
+          // Sử dụng Next.js router thay vì window.location.href
           const url = imageType === 'left' ? '/groom' : '/bride';
-          window.location.href = url;
+          router.push(url);
+          
+          // Reset trạng thái sau khi điều hướng
+          setIsTransitioning(false);
         }
       };
       

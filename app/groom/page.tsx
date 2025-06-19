@@ -4,13 +4,17 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Home, MapPinHouse } from 'lucide-react'
-import Image from 'next/image';
+import Image from 'next/image'
+import { useNavigationStore } from '@stores'
+import { useRouter } from 'next/navigation' // Import useRouter từ next/navigation
+
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
 export default function GroomPage() {
+  const router = useRouter() // Khởi tạo router
   const containerRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const section1Ref = useRef<HTMLDivElement>(null)
@@ -29,6 +33,7 @@ export default function GroomPage() {
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
+    
   // Check mobile device
   useEffect(() => {
     const checkMobile = () => {
@@ -329,11 +334,25 @@ export default function GroomPage() {
     window.open('https://maps.app.goo.gl/a1N6Auntpp1bmXGV7', '_blank')
   }, [])
 
-  // Thêm function để quay về trang chủ
+  // Cập nhật function để quay về trang chủ với Next.js Router
   const handleGoHome = () => {
-    // Có thể thay đổi theo nhu cầu của bạn
-    window.location.href = '/'; // hoặc window.history.back();
-  };
+  console.log('🚀 handleGoHome clicked');
+  
+  // Set target section để trigger scroll
+  const setTargetSection = useNavigationStore.getState().setTargetSection;
+  setTargetSection('experience');
+  
+  console.log('📍 Set targetSection to: experience');
+  
+  // Navigate to home
+  console.log('🔄 Navigating to home...');
+  router.push('/');
+};
+
+  // Prefetch trang chủ để tăng performance
+  useEffect(() => {
+    router.prefetch('/')
+  }, [router])
 
   return (
     <>
@@ -396,9 +415,19 @@ export default function GroomPage() {
           touch-action: none;
         }
           @keyframes slowRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        
+        @keyframes glowPulse {
+          0%, 100% { filter: drop-shadow(0 0 10px rgba(244, 228, 188, 0.4)); }
+          50% { filter: drop-shadow(0 0 20px rgba(244, 228, 188, 0.8)); }
+        }
       `}</style>
       {/* Loading Screen */}
       {isLoading && (
@@ -432,7 +461,7 @@ export default function GroomPage() {
             backgroundImage: 'url(/sontrangmain.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center left',
-            filter: 'grayscale(60%) blur(3px)'
+            filter: 'grayscale(100%) blur(3px)'
           }}
         />
 
@@ -481,12 +510,12 @@ export default function GroomPage() {
             </div>
 
             {/* Rectangle - Responsive size */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
+            <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
             </div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
@@ -515,7 +544,7 @@ export default function GroomPage() {
 
 
             {/* Rectangle */}
-            <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-full bg-[#292929] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
               <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
@@ -524,9 +553,73 @@ export default function GroomPage() {
                   height="60"
                   viewBox="0 0 100 100"
                   style={{
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                    filter: 'drop-shadow(0 0 15px rgba(244, 228, 188, 0.6))',
+                    animation: 'glowPulse 3s ease-in-out infinite'
                   }}
                 >
+                {/* Define gradients */}
+          <defs>
+            {/* Outer petal gradient */}
+            <radialGradient id="outerPetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#8FBC8F" />
+              <stop offset="50%" stopColor="#6B8E23" />
+              <stop offset="100%" stopColor="#556B2F" />
+            </radialGradient>
+            
+            {/* Main petal gradient */}
+            <radialGradient id="mainPetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#FFF8DC" />
+              <stop offset="40%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#DEB887" />
+            </radialGradient>
+            
+            {/* Inner petal gradient */}
+            <radialGradient id="innerPetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#ADFF2F" />
+              <stop offset="50%" stopColor="#9eb46c" />
+              <stop offset="100%" stopColor="#7A8450" />
+            </radialGradient>
+            
+            {/* Center gradients for 3D effect */}
+            <radialGradient id="centerGradient1" cx="30%" cy="30%" r="80%">
+              <stop offset="0%" stopColor="#F5DEB3" />
+              <stop offset="50%" stopColor="#bea374" />
+              <stop offset="100%" stopColor="#8B7355" />
+            </radialGradient>
+            
+            <radialGradient id="centerGradient2" cx="40%" cy="40%" r="70%">
+              <stop offset="0%" stopColor="#FFFACD" />
+              <stop offset="60%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#DEB887" />
+            </radialGradient>
+            
+            <radialGradient id="centerGradient3" cx="35%" cy="35%" r="60%">
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="30%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#F0E68C" />
+            </radialGradient>
+            
+            {/* Glow filter */}
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Outer glow ring */}
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="45" 
+            fill="none" 
+            stroke="rgba(244, 228, 188, 0.2)" 
+            strokeWidth="1"
+            style={{ animation: 'pulse 4s ease-in-out infinite' }}
+          />
+
                   {/* Outer petals layer */}
                   <g style={{
                     transformOrigin: '50px 50px',
@@ -539,7 +632,7 @@ export default function GroomPage() {
                         cy="25"
                         rx="8"
                         ry="20"
-                        fill="#a8d5a8"
+                        fill="#6B8E23"
                         opacity="0.6"
                         transform={`rotate(${i * 45} 50 50)`}
                         style={{ borderRadius: '50%' }}
@@ -559,7 +652,7 @@ export default function GroomPage() {
                         cy="28"
                         rx="7"
                         ry="18"
-                        fill="#ffffff"
+                        fill="#f4e4bc"
                         opacity="0.8"
                         transform={`rotate(${i * 30} 50 50)`}
                         style={{ borderRadius: '50%' }}
@@ -579,18 +672,32 @@ export default function GroomPage() {
                         cy="32"
                         rx="6"
                         ry="14"
-                        fill="#7fc97f"
-                        opacity="0.7"
+                        fill="#9eb46c"
+                        opacity="1"
                         transform={`rotate(${i * 60} 50 50)`}
                         style={{ borderRadius: '50%' }}
                       />
                     ))}
                   </g>
 
-                  {/* Flower center */}
-                  <circle cx="50" cy="50" r="10" fill="#ffffff" opacity="0.9" />
-                  <circle cx="50" cy="50" r="6" fill="#90ee90" opacity="0.8" />
-                  <circle cx="50" cy="50" r="3" fill="#ffffff" opacity="0.9" />
+                  {/* 3D Flower center - Multiple layers for depth */}
+          {/* Base shadow layer */}
+          <circle cx="52" cy="52" r="12" fill="rgba(0,0,0,0.2)" opacity="0.4" />
+          
+          {/* Outer center ring */}
+          <circle cx="50" cy="50" r="11" fill="url(#centerGradient1)" opacity="0.9" />
+          
+          {/* Middle center ring */}
+          <circle cx="50" cy="50" r="8" fill="url(#centerGradient2)" opacity="0.85" />
+          
+          {/* Inner center ring */}
+          <circle cx="50" cy="50" r="5" fill="url(#centerGradient3)" opacity="0.9" />
+          
+          {/* Highlight dot for 3D effect */}
+          <circle cx="48" cy="47" r="2" fill="rgba(255,255,255,0.8)" opacity="0.7" />
+          
+          {/* Center core */}
+          <circle cx="50" cy="50" r="2.5" fill="url(#centerGradient3)" opacity="1" />
                 </svg>
               </div>
 
@@ -648,7 +755,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
