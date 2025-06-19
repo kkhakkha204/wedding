@@ -544,7 +544,7 @@ export default function GroomPage() {
 
 
             {/* Rectangle */}
-            <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-full bg-[#292929] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-full bg-[#505050] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
               <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
@@ -702,20 +702,14 @@ export default function GroomPage() {
               </div>
 
               {showQR && (
-                <div className="absolute inset-0 flex items-center justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
+                <div className="absolute -top-36 flex items-center rounded-t-[120px] justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
                   {/* Backdrop overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-20 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
+                  <div className="absolute bg-black bg-opacity-0 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
 
                   {/* QR Container */}
                   <div className="relative bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
-                    {/* Decorative corners */}
-                    <div className="absolute -top-2 -left-2 w-6 h-6 border-l-4 border-t-4 border-[#7fc97f] rounded-tl-lg"></div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 border-r-4 border-t-4 border-[#7fc97f] rounded-tr-lg"></div>
-                    <div className="absolute -bottom-2 -left-2 w-6 h-6 border-l-4 border-b-4 border-[#7fc97f] rounded-bl-lg"></div>
-                    <div className="absolute -bottom-2 -right-2 w-6 h-6 border-r-4 border-b-4 border-[#7fc97f] rounded-br-lg"></div>
-
                     {/* QR Code */}
-                    <div className="w-40 h-40 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
+                    <div className="w-48 h-48 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
                       <Image
                         src="/qrkha1.PNG"
                         alt="QR Code"
@@ -733,11 +727,7 @@ export default function GroomPage() {
                       </div>
                     </div>
 
-                    {/* Elegant text */}
-                    <div className="mt-4 text-center">
-                      <p className="text-gray-600 text-sm font-medium">Scan để mừng cưới</p>
-                      <p className="text-gray-400 text-xs mt-1">Thank you ♡</p>
-                    </div>
+                
 
                     {/* Subtle decoration */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
@@ -755,7 +745,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
