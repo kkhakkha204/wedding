@@ -331,7 +331,7 @@ export default function GroomPage() {
   }, [showQR])
 
   const handleSection3Click = useCallback(() => {
-    window.open('https://maps.app.goo.gl/NnjenWecVAneT86dA', '_blank')
+    window.open('https://maps.app.goo.gl/a1N6Auntpp1bmXGV7', '_blank')
   }, [])
 
   // Cập nhật function để quay về trang chủ với Next.js Router
@@ -469,7 +469,7 @@ export default function GroomPage() {
         <div className="absolute inset-0 bg-black bg-opacity-30 z-10" />
 
         {/* Bottom gradient overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-[200px] md:h-[400px] bg-gradient-to-t from-white via-white to-transparent z-[400]" />
+        <div className="absolute bottom-0 left-0 right-0 h-[200px] md:h-[250px] bg-gradient-to-t from-white via-white/70 to-transparent z-[400]" />
 
         {/* Home Icon - Top Left */}
         <div className="fixed top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-50">
@@ -485,9 +485,9 @@ export default function GroomPage() {
         {/* Title - Responsive */}
         <div
           ref={titleRef}
-          className="absolute top-[30px] sm:top-16 md:top-24 lg:top-32 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
+          className="absolute top-[30px] sm:top-16 md:top-24 lg:top-12 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
         >
-          <h1 className="text-[50px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[180px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
+          <h1 className="text-[50px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[100px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
             Happy Wedding
           </h1>
         </div>
@@ -498,7 +498,7 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 30 }}
         >
-          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[45%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[55%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text - Responsive positioning */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-30px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-4xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
@@ -510,22 +510,22 @@ export default function GroomPage() {
             </div>
 
             {/* Rectangle - Responsive size */}
-<div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
+<div className="relative w-44 sm:w-64 md:w-80 lg:w-56 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
   {/* Logo - Responsive và không bị méo */}
-  <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 w-16 sm:w-20 md:w-24 lg:w-28 h-16 sm:h-20 md:h-24 lg:h-28 relative">
+  <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-4 w-16 sm:w-20 md:w-24 lg:w-16 h-16 sm:h-20 md:h-24 lg:h-16 relative">
     <Image 
       src="/namelogo.png"
       alt="Wedding Logo"
       fill
       className="object-contain" // object-contain giữ tỷ lệ không bị méo
-      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"
+      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, (max-width: 1024px) 60px, 60px"
     />
   </div>
 </div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[670px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
@@ -545,8 +545,8 @@ export default function GroomPage() {
         >
           <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Centered Text */}
-            <div className="absolute left-1/2 top-[-80px] sm:top-1/3 transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[21px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-1 drop-shadow-lg body-font text-center whitespace-nowrap">
+            <div className="absolute left-1/2 top-[-80px] xl:top-[-60px] transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
+              <p className="text-[21px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-[26px] drop-shadow-lg body-font text-center whitespace-nowrap">
                 Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br /><span className='name-font mt-2 text-[25px]'>Thank Youu!</span>
               </p>
 
@@ -554,10 +554,10 @@ export default function GroomPage() {
 
 
             {/* Rectangle */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-44 sm:w-64 md:w-80 lg:w-56 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
-              <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
+              <div className="mt-4 sm:mt-6 md:mt-4 flex items-center justify-center">
                 <svg
                   width="65"
                   height="65"
@@ -755,9 +755,9 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[400px] md:w-[500px] lg:w-[570px] h-full fade-element pointer-events-none"
               style={{
-                backgroundImage: 'url(/ttg.png)',
+                backgroundImage: 'url(/asd.png)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center bottom',
@@ -780,27 +780,27 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[80%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
+              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
               <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg xl:ml-40 body-font">Ngày 13-14.07.2025</p>
             </div>
 
             {/* Right Text */}
-            <div className="absolute right-2 sm:right-4 md:right-8 lg:right-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font">Thôn Bách Nhẫn, Xã Mai trung,</p>
+            <div className="absolute right-2 sm:right-4 md:right-8 lg:right-32 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
+              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 drop-shadow-lg body-font">Thôn Châu Lỗ, Xã Mai Đình,</p>
               <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tỉnh Bắc Giang</p>
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
+            <div className="relative w-44 sm:w-64 md:w-80 lg:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
   
   {/* Animated background pattern */}
   {/* Simple animated icon */}
   <div className="relative pt-8">
-    <div className="bg-[#53484E] p-3 sm:p-5 md:p-6 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
-      <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white animate-pulse" />
+    <div className="bg-[#53484E] p-3 sm:p-5 md:p-4 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
+      <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-8 md:h-8 text-white animate-pulse" />
     </div>
     
     {/* Subtle pulse ring */}
@@ -813,7 +813,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[350px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[350px] sm:w-[400px] md:w-[500px] lg:w-[420px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang4.png)',
                 backgroundSize: 'contain',
