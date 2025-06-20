@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const AvailableColors = ['#0690d4', '#272727','#a4907c'];
+const AvailableColors = ['#0690d4', '#272727','#69594a'];
 
 interface ThemeStore {
   colors: string[];
@@ -13,7 +13,7 @@ export const useThemeStore = create<ThemeStore>()(
   persist(
     (set, get) => ({
       colors: [...AvailableColors],
-      color: AvailableColors[0],
+      color: AvailableColors[2],
       nextColor: () => {
         const colors = get().colors;
         const activeColorIndex = colors.indexOf(get().color);

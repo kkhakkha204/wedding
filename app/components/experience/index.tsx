@@ -1,19 +1,22 @@
 import { Text, useScroll, useTexture } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { usePortalStore } from "@stores";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
-import { useRouter } from "next/navigation"; // Import useRouter từ next/navigation
+import { useRouter } from "next/navigation";
 import * as THREE from 'three';
 
 const Experience = () => {
-  const router = useRouter(); // Khởi tạo router
+  const router = useRouter();
   const titleRef = useRef<THREE.Group>(null);
   const groupRef = useRef<THREE.Group>(null);
   const leftImageRef = useRef<THREE.Mesh>(null);
   const rightImageRef = useRef<THREE.Mesh>(null);
   const leftTitleRef = useRef<THREE.Mesh>(null);
   const rightTitleRef = useRef<THREE.Mesh>(null);
+  const leftIndicatorRef = useRef<THREE.Mesh>(null);
+  const rightIndicatorRef = useRef<THREE.Mesh>(null);
+  const weddingMessageRef = useRef<THREE.Mesh>(null);
   const data = useScroll();
   const isActive = usePortalStore((state) => !!state.activePortalId);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -24,7 +27,22 @@ const Experience = () => {
 
   // Load textures for the images
   const leftTexture = useTexture('./a4.jpeg');
-  const rightTexture = useTexture('./a4.jpeg');
+  const rightTexture = useTexture('./bride3.jpg');
+
+  // Setup texture để cover (không bị stretch)
+  useEffect(() => {
+    if (leftTexture) {
+      leftTexture.wrapS = leftTexture.wrapT = THREE.ClampToEdgeWrapping ;
+      leftTexture.generateMipmaps = false;
+    }
+  }, [leftTexture]);
+
+  useEffect(() => {
+    if (rightTexture) {
+      rightTexture.wrapS = rightTexture.wrapT = THREE.ClampToEdgeWrapping ;
+      rightTexture.generateMipmaps = false;
+    }
+  }, [rightTexture]);
 
   const fontProps = {
     font: "./soria-font.ttf",
@@ -32,11 +50,20 @@ const Experience = () => {
     color: 'white',
   };
 
-  // Font props cho title trên ảnh
+  // Font props cho title trên ảnh - tăng kích thước trên mobile
   const imageTitleProps = {
     font: "./a2.otf",
-    fontSize: isMobile ? 0.15 : 0.2,
+    fontSize: isMobile ? 0.18 : 0.2,
     color: 'white',
+    anchorX: 'center' as const,
+    anchorY: 'middle' as const,
+  };
+
+  // Props cho wedding message text
+  const weddingMessageProps = {
+    font: "./a2.otf",
+    fontSize: isMobile ? 0.16 : 0.12,
+    color: '#ffffff',
     anchorX: 'center' as const,
     anchorY: 'middle' as const,
   };
@@ -57,7 +84,6 @@ const Experience = () => {
         const y = Math.max(Math.min((1 - d) * (10 - i), 10), 0.5);
         text.position.y = THREE.MathUtils.damp(text.position.y, y, 7, delta);
         
-        // Type-safe way to access fillOpacity
         if ('fillOpacity' in text && typeof text.fillOpacity === 'number') {
           text.fillOpacity = e;
         }
@@ -208,6 +234,49 @@ const Experience = () => {
           delta
         ));
       }
+
+      // Animate click indicators (only on mobile)
+      if (isMobile && leftIndicatorRef.current && rightIndicatorRef.current) {
+        // Pulsing animation for indicators
+        const pulseScale = 1 + Math.sin(time * 3) * 0.2;
+        const pulseOpacity = 0.6 + Math.sin(time * 2) * 0.3;
+        
+        leftIndicatorRef.current.scale.setScalar(pulseScale);
+        rightIndicatorRef.current.scale.setScalar(pulseScale);
+        
+        // Update indicator positions to follow images
+        leftIndicatorRef.current.position.x = leftImageRef.current.position.x + imageWidth / 2 - 0.3;
+        leftIndicatorRef.current.position.y = leftImageRef.current.position.y - containerHeight / 2 + 0.3;
+        leftIndicatorRef.current.position.z = leftImageRef.current.position.z + 0.1;
+        
+        rightIndicatorRef.current.position.x = rightImageRef.current.position.x - imageWidth / 2 + 0.3;
+        rightIndicatorRef.current.position.y = rightImageRef.current.position.y - containerHeight / 2 + 0.3;
+        rightIndicatorRef.current.position.z = rightImageRef.current.position.z + 0.1;
+
+        // Type-safe opacity handling for indicators
+        if ('material' in leftIndicatorRef.current && leftIndicatorRef.current.material && 'opacity' in leftIndicatorRef.current.material) {
+          (leftIndicatorRef.current.material as THREE.MeshBasicMaterial).opacity = pulseOpacity;
+        }
+        if ('material' in rightIndicatorRef.current && rightIndicatorRef.current.material && 'opacity' in rightIndicatorRef.current.material) {
+          (rightIndicatorRef.current.material as THREE.MeshBasicMaterial).opacity = pulseOpacity;
+        }
+      }
+
+      // Animate wedding message
+      if (weddingMessageRef.current) {
+        // Gentle floating animation
+        const floatOffset = Math.sin(time * 1.5) * 0.03;
+        
+        weddingMessageRef.current.position.x = 0;
+        weddingMessageRef.current.position.y = -containerHeight / 2 - 0.8 + floatOffset;
+        weddingMessageRef.current.position.z = 0.1;
+
+        // Gentle opacity animation
+        const messageOpacity = 0.8 + Math.sin(time * 1.2) * 0.2;
+        if ('fillOpacity' in weddingMessageRef.current) {
+          (weddingMessageRef.current as THREE.Mesh & { fillOpacity: number }).fillOpacity = messageOpacity;
+        }
+      }
     }
   });
 
@@ -226,11 +295,9 @@ const Experience = () => {
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          // Sử dụng Next.js router thay vì window.location.href
           const url = imageType === 'left' ? '/groom' : '/bride';
           router.push(url);
           
-          // Reset trạng thái sau khi điều hướng
           setIsTransitioning(false);
         }
       };
@@ -258,29 +325,74 @@ const Experience = () => {
   };
 
   const getTitle = () => {
-    const title = 'experience'.toUpperCase();
+    const title = 'HAPPY WEDDING';
     return title.split('').map((char, i) => {
-      const diff = isMobile ? 0.4 : 0.8;
+      const diff = isMobile ? 0.30 : 0.7;
       return (
         <Text key={i} {...fontProps} position={[i * diff, 2, 1]}>{char}</Text>
       );
     });
   };
 
+  // Kích thước khung ảnh cố định
   const containerWidth = isMobile ? 4 : 6;
   const containerHeight = isMobile ? 3 : 4;
   const imageWidth = containerWidth / 2;
 
+  // Function để tính toán texture offset cho cover effect
+  const getTextureTransform = (texture: THREE.Texture, targetWidth: number, targetHeight: number) => {
+    if (!texture.image) return { offsetX: 0, offsetY: 0, scaleX: 1, scaleY: 1 };
+    
+    const imageAspect = texture.image.width / texture.image.height;
+    const targetAspect = targetWidth / targetHeight;
+    
+    let scaleX = 1;
+    let scaleY = 1;
+    let offsetX = 0;
+    let offsetY = 0;
+    
+    if (imageAspect > targetAspect) {
+      // Ảnh rộng hơn khung -> scale theo height, crop width
+      scaleX = targetAspect / imageAspect;
+      offsetX = (1 - scaleX) / 2;
+    } else {
+      // Ảnh cao hơn khung -> scale theo width, crop height  
+      scaleY = imageAspect / targetAspect;
+      offsetY = (1 - scaleY) / 2;
+    }
+    
+    return { offsetX, offsetY, scaleX, scaleY };
+  };
+
+  // Tính toán transform cho texture để có effect cover
+  const leftTransform = getTextureTransform(leftTexture, imageWidth, containerHeight);
+  const rightTransform = getTextureTransform(rightTexture, imageWidth, containerHeight);
+
+  // Apply transform cho textures
+  useEffect(() => {
+    if (leftTexture) {
+      leftTexture.offset.set(leftTransform.offsetX, leftTransform.offsetY);
+      leftTexture.repeat.set(leftTransform.scaleX, leftTransform.scaleY);
+    }
+  }, [leftTexture, leftTransform]);
+
+  useEffect(() => {
+    if (rightTexture) {
+      rightTexture.offset.set(rightTransform.offsetX, rightTransform.offsetY);
+      rightTexture.repeat.set(rightTransform.scaleX, rightTransform.scaleY);
+    }
+  }, [rightTexture, rightTransform]);
+
   return (
     <group position={[0, -41.5, 12]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]}>
       <group rotation={[0, 0, Math.PI / 2]}>
-        <group ref={titleRef} position={[isMobile ? -1.8 : -3.6, 1.5, -2]}>
+        <group ref={titleRef} position={[isMobile ? -1.8 : -4.2, 1.5, -2]}>
           {getTitle()}
         </group>
 
         <group position={[0, -1, 0]} ref={groupRef}>
-          <group position={[0, 0, 0.1]}>
-            {/* Left Image with Enhanced 3D Hover Effects */}
+          <group position={[0, -0.5, 0.1]}>
+            {/* Left Image with Cover Effect */}
             <mesh
               ref={leftImageRef}
               position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)), 0, 0]}
@@ -305,7 +417,7 @@ const Experience = () => {
               Ngô Hồng Sơn
             </Text>
 
-            {/* Right Image with Enhanced 3D Hover Effects */}
+            {/* Right Image with Cover Effect */}
             <mesh
               ref={rightImageRef}
               position={[imageWidth / 2 + (isMobile ? 1 : 1.5), 0, 0]}
@@ -330,11 +442,42 @@ const Experience = () => {
               Bùi Thu Trang
             </Text>
 
-            {/* Background */}
-            <mesh position={[0, 0, -0.01]}>
-              <planeGeometry args={[containerWidth, containerHeight]} />
-              <meshBasicMaterial color="#000000" transparent opacity={0} />
-            </mesh>
+            {/* Mobile Click Indicators */}
+            {isMobile && (
+              <>
+                <mesh
+                  ref={leftIndicatorRef}
+                  position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)) + imageWidth / 2 - 0.3, -containerHeight / 2 + 0.3, 0.1]}
+                >
+                  <circleGeometry args={[0.1, 16]} />
+                  <meshBasicMaterial 
+                    color="#ffffff" 
+                    transparent 
+                    opacity={0.8}
+                  />
+                </mesh>
+
+                <mesh
+                  ref={rightIndicatorRef}
+                  position={[imageWidth / 2 + (isMobile ? 1 : 1.5) - imageWidth / 2 + 0.3, -containerHeight / 2 + 0.3, 0.1]}
+                >
+                  <circleGeometry args={[0.1, 16]} />
+                  <meshBasicMaterial 
+                    color="#ffffff" 
+                    transparent 
+                    opacity={0.8}
+                  />
+                </mesh>
+
+                <Text
+                  ref={weddingMessageRef}
+                  {...weddingMessageProps}
+                  position={[0, -containerHeight / 2 - 0.8, 0.01]}
+                >
+                  Mong rằng bạn sẽ là một phần trong ngày vui của tụi mình
+                </Text>
+              </>
+            )}
           </group>
         </group>
       </group>

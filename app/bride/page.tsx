@@ -4,13 +4,17 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Home, MapPinHouse } from 'lucide-react'
-import Image from 'next/image';
+import Image from 'next/image'
+import { useNavigationStore } from '@stores'
+import { useRouter } from 'next/navigation' // Import useRouter từ next/navigation
+
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
 export default function GroomPage() {
+  const router = useRouter() // Khởi tạo router
   const containerRef = useRef<HTMLDivElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
   const section1Ref = useRef<HTMLDivElement>(null)
@@ -29,6 +33,7 @@ export default function GroomPage() {
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [isReady, setIsReady] = useState(false)
 
+    
   // Check mobile device
   useEffect(() => {
     const checkMobile = () => {
@@ -326,14 +331,28 @@ export default function GroomPage() {
   }, [showQR])
 
   const handleSection3Click = useCallback(() => {
-    window.open('https://maps.app.goo.gl/a1N6Auntpp1bmXGV7', '_blank')
+    window.open('https://maps.app.goo.gl/NnjenWecVAneT86dA', '_blank')
   }, [])
 
-  // Thêm function để quay về trang chủ
+  // Cập nhật function để quay về trang chủ với Next.js Router
   const handleGoHome = () => {
-    // Có thể thay đổi theo nhu cầu của bạn
-    window.location.href = '/'; // hoặc window.history.back();
-  };
+  console.log('🚀 handleGoHome clicked');
+  
+  // Set target section để trigger scroll
+  const setTargetSection = useNavigationStore.getState().setTargetSection;
+  setTargetSection('experience');
+  
+  console.log('📍 Set targetSection to: experience');
+  
+  // Navigate to home
+  console.log('🔄 Navigating to home...');
+  router.push('/');
+};
+
+  // Prefetch trang chủ để tăng performance
+  useEffect(() => {
+    router.prefetch('/')
+  }, [router])
 
   return (
     <>
@@ -396,15 +415,25 @@ export default function GroomPage() {
           touch-action: none;
         }
           @keyframes slowRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+        
+        @keyframes glowPulse {
+          0%, 100% { filter: drop-shadow(0 0 10px rgba(244, 228, 188, 0.6)); }
+          50% { filter: drop-shadow(0 0 20px rgba(244, 228, 188, 0.8)); }
+        }
       `}</style>
       {/* Loading Screen */}
       {isLoading && (
         <div
           ref={loadingRef}
-          className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[100]"
+          className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[700]"
         >
 
           {/* Progress Bar Container */}
@@ -432,7 +461,7 @@ export default function GroomPage() {
             backgroundImage: 'url(/sontrangmain.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center left',
-            filter: 'grayscale(60%) blur(3px)'
+            filter: 'grayscale(100%) blur(3px)'
           }}
         />
 
@@ -440,7 +469,7 @@ export default function GroomPage() {
         <div className="absolute inset-0 bg-black bg-opacity-30 z-10" />
 
         {/* Bottom gradient overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-[200px] md:h-[400px] bg-gradient-to-t from-white/40 via-white/30 to-transparent z-15" />
+        <div className="absolute bottom-0 left-0 right-0 h-[200px] md:h-[400px] bg-gradient-to-t from-white via-white to-transparent z-[400]" />
 
         {/* Home Icon - Top Left */}
         <div className="fixed top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-50">
@@ -456,7 +485,7 @@ export default function GroomPage() {
         {/* Title - Responsive */}
         <div
           ref={titleRef}
-          className="absolute top-12 sm:top-16 md:top-24 lg:top-32 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
+          className="absolute top-[30px] sm:top-16 md:top-24 lg:top-32 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
         >
           <h1 className="text-[50px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[180px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
             Happy Wedding
@@ -469,7 +498,7 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 30 }}
         >
-          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[45%] h-[65vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[45%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text - Responsive positioning */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-30px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-4xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
@@ -481,8 +510,18 @@ export default function GroomPage() {
             </div>
 
             {/* Rectangle - Responsive size */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
-            </div>
+<div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
+  {/* Logo - Responsive và không bị méo */}
+  <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 w-16 sm:w-20 md:w-24 lg:w-28 h-16 sm:h-20 md:h-24 lg:h-28 relative">
+    <Image 
+      src="/namelogo.png"
+      alt="Wedding Logo"
+      fill
+      className="object-contain" // object-contain giữ tỷ lệ không bị méo
+      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"
+    />
+  </div>
+</div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
@@ -504,29 +543,93 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[65vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Centered Text */}
             <div className="absolute left-1/2 top-[-80px] sm:top-1/3 transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[22px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font text-center whitespace-nowrap">
-                Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br />Thank Youu!
+              <p className="text-[21px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-1 drop-shadow-lg body-font text-center whitespace-nowrap">
+                Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br /><span className='name-font mt-2 text-[25px]'>Thank Youu!</span>
               </p>
 
             </div>
 
 
             {/* Rectangle */}
-            <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
               <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
                 <svg
-                  width="60"
-                  height="60"
+                  width="65"
+                  height="65"
                   viewBox="0 0 100 100"
                   style={{
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))'
+                    filter: 'drop-shadow(0 0 15px rgba(244, 228, 188, 0.8))',
+                    animation: 'glowPulse 3s ease-in-out infinite'
                   }}
                 >
+                {/* Define gradients */}
+          <defs>
+            {/* Outer petal gradient */}
+            <radialGradient id="outerPetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#8FBC8F" />
+              <stop offset="50%" stopColor="#6B8E23" />
+              <stop offset="100%" stopColor="#556B2F" />
+            </radialGradient>
+            
+            {/* Main petal gradient */}
+            <radialGradient id="mainPetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#FFF8DC" />
+              <stop offset="40%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#DEB887" />
+            </radialGradient>
+            
+            {/* Inner petal gradient */}
+            <radialGradient id="innerPetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#ADFF2F" />
+              <stop offset="50%" stopColor="#9eb46c" />
+              <stop offset="100%" stopColor="#7A8450" />
+            </radialGradient>
+            
+            {/* Center gradients for 3D effect */}
+            <radialGradient id="centerGradient1" cx="30%" cy="30%" r="80%">
+              <stop offset="0%" stopColor="#F5DEB3" />
+              <stop offset="50%" stopColor="#bea374" />
+              <stop offset="100%" stopColor="#8B7355" />
+            </radialGradient>
+            
+            <radialGradient id="centerGradient2" cx="40%" cy="40%" r="70%">
+              <stop offset="0%" stopColor="#FFFACD" />
+              <stop offset="60%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#DEB887" />
+            </radialGradient>
+            
+            <radialGradient id="centerGradient3" cx="35%" cy="35%" r="60%">
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="30%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#F0E68C" />
+            </radialGradient>
+            
+            {/* Glow filter */}
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge> 
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Outer glow ring */}
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="45" 
+            fill="none" 
+            stroke="rgba(244, 228, 188, 0.2)" 
+            strokeWidth="1"
+            style={{ animation: 'pulse 4s ease-in-out infinite' }}
+          />
+
                   {/* Outer petals layer */}
                   <g style={{
                     transformOrigin: '50px 50px',
@@ -539,7 +642,7 @@ export default function GroomPage() {
                         cy="25"
                         rx="8"
                         ry="20"
-                        fill="#a8d5a8"
+                        fill="#6B8E23"
                         opacity="0.6"
                         transform={`rotate(${i * 45} 50 50)`}
                         style={{ borderRadius: '50%' }}
@@ -579,36 +682,44 @@ export default function GroomPage() {
                         cy="32"
                         rx="6"
                         ry="14"
-                        fill="#7fc97f"
-                        opacity="0.7"
+                        fill="#9eb46c"
+                        opacity="1"
                         transform={`rotate(${i * 60} 50 50)`}
                         style={{ borderRadius: '50%' }}
                       />
                     ))}
                   </g>
 
-                  {/* Flower center */}
-                  <circle cx="50" cy="50" r="10" fill="#ffffff" opacity="0.9" />
-                  <circle cx="50" cy="50" r="6" fill="#90ee90" opacity="0.8" />
-                  <circle cx="50" cy="50" r="3" fill="#ffffff" opacity="0.9" />
+                  {/* 3D Flower center - Multiple layers for depth */}
+          {/* Base shadow layer */}
+          <circle cx="52" cy="52" r="12" fill="rgba(0,0,0,0.2)" opacity="0.4" />
+          
+          {/* Outer center ring */}
+          <circle cx="50" cy="50" r="11" fill="url(#centerGradient1)" opacity="0.9" />
+          
+          {/* Middle center ring */}
+          <circle cx="50" cy="50" r="8" fill="url(#centerGradient2)" opacity="0.85" />
+          
+          {/* Inner center ring */}
+          <circle cx="50" cy="50" r="5" fill="url(#centerGradient3)" opacity="0.9" />
+          
+          {/* Highlight dot for 3D effect */}
+          <circle cx="48" cy="47" r="2" fill="rgba(255,255,255,0.8)" opacity="0.7" />
+          
+          {/* Center core */}
+          <circle cx="50" cy="50" r="2.5" fill="url(#centerGradient3)" opacity="1" />
                 </svg>
               </div>
 
               {showQR && (
-                <div className="absolute inset-0 flex items-center justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
+                <div className="absolute -top-36 flex items-center rounded-t-[120px] justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
                   {/* Backdrop overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-20 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
+                  <div className="absolute bg-black bg-opacity-0 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
 
                   {/* QR Container */}
                   <div className="relative bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
-                    {/* Decorative corners */}
-                    <div className="absolute -top-2 -left-2 w-6 h-6 border-l-4 border-t-4 border-[#7fc97f] rounded-tl-lg"></div>
-                    <div className="absolute -top-2 -right-2 w-6 h-6 border-r-4 border-t-4 border-[#7fc97f] rounded-tr-lg"></div>
-                    <div className="absolute -bottom-2 -left-2 w-6 h-6 border-l-4 border-b-4 border-[#7fc97f] rounded-bl-lg"></div>
-                    <div className="absolute -bottom-2 -right-2 w-6 h-6 border-r-4 border-b-4 border-[#7fc97f] rounded-br-lg"></div>
-
                     {/* QR Code */}
-                    <div className="w-40 h-40 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
+                    <div className="w-48 h-48 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
                       <Image
                         src="/qrkha1.PNG"
                         alt="QR Code"
@@ -626,11 +737,7 @@ export default function GroomPage() {
                       </div>
                     </div>
 
-                    {/* Elegant text */}
-                    <div className="mt-4 text-center">
-                      <p className="text-gray-600 text-sm font-medium">Scan để mừng cưới</p>
-                      <p className="text-gray-400 text-xs mt-1">Thank you ♡</p>
-                    </div>
+                
 
                     {/* Subtle decoration */}
                     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
@@ -648,9 +755,9 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
-                backgroundImage: 'url(/sontrang1.png)',
+                backgroundImage: 'url(/ttg.png)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center bottom',
@@ -673,7 +780,7 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[65vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
@@ -682,21 +789,33 @@ export default function GroomPage() {
 
             {/* Right Text */}
             <div className="absolute right-2 sm:right-4 md:right-8 lg:right-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font">Thôn Châu Lỗ, Xã Mai Đình,</p>
-              <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tính Bắc Giang</p>
+              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font">Thôn Bách Nhẫn, Xã Mai trung,</p>
+              <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tỉnh Bắc Giang</p>
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
-              <p className="text-[#272727] text-base sm:text-base md:text-lg lg:text-xl mt-4 sm:mb-4 drop-shadow-lg text-center body-font">Ấn vào đây để<br />xem địa điểm lễ cưới.</p>
-              <MapPinHouse className="w-5 h-5 sm:w-12 h-12 md:w-16 h-16 text-[#272727] mt-2 sm:mb-4 drop-shadow-lg" />
-            </div>
+            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
+  
+  {/* Animated background pattern */}
+  {/* Simple animated icon */}
+  <div className="relative pt-8">
+    <div className="bg-[#53484E] p-3 sm:p-5 md:p-6 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
+      <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white animate-pulse" />
+    </div>
+    
+    {/* Subtle pulse ring */}
+    <div className="absolute inset-0 -m-1 border-2 border-[#53484E] rounded-full animate-ping opacity-15"></div>
+  </div>
+
+  {/* Hover overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#53484E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-[inherit]"></div>
+</div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[350px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
-                backgroundImage: 'url(/sontrang1.png)',
+                backgroundImage: 'url(/sontrang4.png)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center bottom',
@@ -726,7 +845,7 @@ export default function GroomPage() {
         </div>
 
         {/* Scroll indicator - Responsive */}
-        <div className="absolute bottom-24 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-[#272727] text-center">
+        <div className="absolute bottom-24 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-[#272727] text-center z-[500]">
           <div className="animate-bounce">
             <div className="w-4 h-5 sm:w-5 h-8 md:w-6 h-10 border-[1px] border-[#272727] rounded-full mx-auto mb-1 sm:mb-2">
               <div className="w-[1px] h-2 sm:w-1 h-2 bg-[#272727] rounded-full mx-auto mt-1 sm:mt-2 animate-pulse"></div>

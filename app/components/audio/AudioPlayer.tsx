@@ -6,7 +6,7 @@ import { Volume2, VolumeX } from 'lucide-react';
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(true);
-  const [play, { stop }] = useSound('/audio/a.mp3', {
+  const [play, { stop }] = useSound('/audio/tatnuoc.mp3', {
     volume: 0.5,
     loop: true,
   });

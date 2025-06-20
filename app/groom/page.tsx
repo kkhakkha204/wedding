@@ -425,7 +425,7 @@ export default function GroomPage() {
         }
         
         @keyframes glowPulse {
-          0%, 100% { filter: drop-shadow(0 0 10px rgba(244, 228, 188, 0.4)); }
+          0%, 100% { filter: drop-shadow(0 0 10px rgba(244, 228, 188, 0.6)); }
           50% { filter: drop-shadow(0 0 20px rgba(244, 228, 188, 0.8)); }
         }
       `}</style>
@@ -433,7 +433,7 @@ export default function GroomPage() {
       {isLoading && (
         <div
           ref={loadingRef}
-          className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[100]"
+          className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[700]"
         >
 
           {/* Progress Bar Container */}
@@ -469,7 +469,7 @@ export default function GroomPage() {
         <div className="absolute inset-0 bg-black bg-opacity-30 z-10" />
 
         {/* Bottom gradient overlay */}
-        <div className="absolute bottom-0 left-0 right-0 h-[200px] md:h-[400px] bg-gradient-to-t from-white/40 via-white/30 to-transparent z-15" />
+        <div className="absolute bottom-0 left-0 right-0 h-[200px] md:h-[400px] bg-gradient-to-t from-white via-white to-transparent z-[400]" />
 
         {/* Home Icon - Top Left */}
         <div className="fixed top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 z-50">
@@ -485,7 +485,7 @@ export default function GroomPage() {
         {/* Title - Responsive */}
         <div
           ref={titleRef}
-          className="absolute top-12 sm:top-16 md:top-24 lg:top-32 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
+          className="absolute top-[30px] sm:top-16 md:top-24 lg:top-32 left-1/2 transform -translate-x-1/2 z-50 parallax-element"
         >
           <h1 className="text-[50px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[180px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
             Happy Wedding
@@ -498,7 +498,7 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 30 }}
         >
-          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[45%] h-[65vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[45%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text - Responsive positioning */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-30px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-4xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
@@ -510,12 +510,22 @@ export default function GroomPage() {
             </div>
 
             {/* Rectangle - Responsive size */}
-            <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
-            </div>
+<div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
+  {/* Logo - Responsive và không bị méo */}
+  <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-14 w-16 sm:w-20 md:w-24 lg:w-28 h-16 sm:h-20 md:h-24 lg:h-28 relative">
+    <Image 
+      src="/namelogo.png"
+      alt="Wedding Logo"
+      fill
+      className="object-contain" // object-contain giữ tỷ lệ không bị méo
+      sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"
+    />
+  </div>
+</div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[600px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
@@ -533,27 +543,27 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[65vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Centered Text */}
             <div className="absolute left-1/2 top-[-80px] sm:top-1/3 transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[22px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font text-center whitespace-nowrap">
-                Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br />Thank Youu!
+              <p className="text-[21px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-1 drop-shadow-lg body-font text-center whitespace-nowrap">
+                Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br /><span className='name-font mt-2 text-[25px]'>Thank Youu!</span>
               </p>
 
             </div>
 
 
             {/* Rectangle */}
-            <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-full bg-[#505050] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
               <div className="mt-4 sm:mt-6 md:mt-8 flex items-center justify-center">
                 <svg
-                  width="60"
-                  height="60"
+                  width="65"
+                  height="65"
                   viewBox="0 0 100 100"
                   style={{
-                    filter: 'drop-shadow(0 0 15px rgba(244, 228, 188, 0.6))',
+                    filter: 'drop-shadow(0 0 15px rgba(244, 228, 188, 0.8))',
                     animation: 'glowPulse 3s ease-in-out infinite'
                   }}
                 >
@@ -652,7 +662,7 @@ export default function GroomPage() {
                         cy="28"
                         rx="7"
                         ry="18"
-                        fill="#f4e4bc"
+                        fill="#ffffff"
                         opacity="0.8"
                         transform={`rotate(${i * 30} 50 50)`}
                         style={{ borderRadius: '50%' }}
@@ -745,9 +755,9 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
-                backgroundImage: 'url(/sontrang1.png)',
+                backgroundImage: 'url(/ttg.png)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center bottom',
@@ -770,7 +780,7 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[65vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
@@ -780,20 +790,32 @@ export default function GroomPage() {
             {/* Right Text */}
             <div className="absolute right-2 sm:right-4 md:right-8 lg:right-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
               <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:mb-2 drop-shadow-lg body-font">Thôn Châu Lỗ, Xã Mai Đình,</p>
-              <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tính Bắc Giang</p>
+              <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tỉnh Bắc Giang</p>
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-52 sm:w-64 md:w-80 lg:w-96 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
-              <p className="text-[#272727] text-base sm:text-base md:text-lg lg:text-xl mt-4 sm:mb-4 drop-shadow-lg text-center body-font">Ấn vào đây để<br />xem địa điểm lễ cưới.</p>
-              <MapPinHouse className="w-5 h-5 sm:w-12 h-12 md:w-16 h-16 text-[#272727] mt-2 sm:mb-4 drop-shadow-lg" />
-            </div>
+            <div className="relative w-44 sm:w-64 md:w-80 lg:w-96 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
+  
+  {/* Animated background pattern */}
+  {/* Simple animated icon */}
+  <div className="relative pt-8">
+    <div className="bg-[#53484E] p-3 sm:p-5 md:p-6 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
+      <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white animate-pulse" />
+    </div>
+    
+    {/* Subtle pulse ring */}
+    <div className="absolute inset-0 -m-1 border-2 border-[#53484E] rounded-full animate-ping opacity-15"></div>
+  </div>
+
+  {/* Hover overlay */}
+  <div className="absolute inset-0 bg-gradient-to-t from-[#53484E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-[inherit]"></div>
+</div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[350px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-full fade-element pointer-events-none"
               style={{
-                backgroundImage: 'url(/sontrang1.png)',
+                backgroundImage: 'url(/sontrang4.png)',
                 backgroundSize: 'contain',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center bottom',
@@ -823,7 +845,7 @@ export default function GroomPage() {
         </div>
 
         {/* Scroll indicator - Responsive */}
-        <div className="absolute bottom-24 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-[#272727] text-center">
+        <div className="absolute bottom-24 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-[#272727] text-center z-[500]">
           <div className="animate-bounce">
             <div className="w-4 h-5 sm:w-5 h-8 md:w-6 h-10 border-[1px] border-[#272727] rounded-full mx-auto mb-1 sm:mb-2">
               <div className="w-[1px] h-2 sm:w-1 h-2 bg-[#272727] rounded-full mx-auto mt-1 sm:mt-2 animate-pulse"></div>
