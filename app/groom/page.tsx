@@ -559,28 +559,6 @@ export default function GroomPage() {
           ref={loadingRef}
           className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[700]"
         >
-          {/* Loading Status Debug (remove in production) */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="absolute top-4 left-4 text-white text-xs space-y-1">
-              <div>Fonts: {loadingStatus.fonts ? '✅' : '⏳'}</div>
-              <div>Images: {loadingStatus.images ? '✅' : '⏳'}</div>
-              <div>DOM: {loadingStatus.dom ? '✅' : '⏳'}</div>
-            </div>
-          )}
-
-          {/* Loading Text */}
-          <div className="mb-8 text-center">
-            <h2 className="text-white text-2xl md:text-3xl mb-2 title-font">
-              Đang chuẩn bị...
-            </h2>
-            <p className="text-white/70 text-sm body-font">
-              {!loadingStatus.fonts && 'Đang tải fonts...'}
-              {loadingStatus.fonts && !loadingStatus.images && 'Đang tải hình ảnh...'}
-              {loadingStatus.fonts && loadingStatus.images && !loadingStatus.dom && 'Hoàn thiện...'}
-              {resourcesLoaded && 'Sẵn sàng!'}
-            </p>
-          </div>
-
           {/* Progress Bar Container */}
           <div className="w-64 sm:w-80 md:w-96 lg:w-[500px] mb-6">
             <div className="relative h-1 bg-white/20 rounded-full overflow-hidden">
