@@ -26,7 +26,7 @@ const Experience = () => {
   const [rightHovered, setRightHovered] = useState(false);
 
   // Load textures for the images
-  const leftTexture = useTexture('./a4.jpeg');
+  const leftTexture = useTexture('./bride3.jpg');
   const rightTexture = useTexture('./bride3.jpg');
 
   // Setup texture để cover (không bị stretch)
@@ -50,11 +50,11 @@ const Experience = () => {
     color: 'white',
   };
 
-  // Font props cho title trên ảnh - tăng kích thước trên mobile
+  // Font props cho title trên ảnh - đổi màu thành đen
   const imageTitleProps = {
     font: "./a2.otf",
     fontSize: isMobile ? 0.18 : 0.2,
-    color: 'white',
+    color: 'black', // Đổi từ 'white' thành 'black'
     anchorX: 'center' as const,
     anchorY: 'middle' as const,
   };
@@ -451,7 +451,7 @@ const Experience = () => {
                 >
                   <circleGeometry args={[0.1, 16]} />
                   <meshBasicMaterial 
-                    color="#ffffff" 
+                    color="#000000" // Đổi từ "#ffffff" thành "#000000"
                     transparent 
                     opacity={0.8}
                   />
@@ -463,7 +463,7 @@ const Experience = () => {
                 >
                   <circleGeometry args={[0.1, 16]} />
                   <meshBasicMaterial 
-                    color="#ffffff" 
+                    color="#000000" // Đổi từ "#ffffff" thành "#000000"
                     transparent 
                     opacity={0.8}
                   />

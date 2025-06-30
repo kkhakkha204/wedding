@@ -14,7 +14,7 @@ const vercettiFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Lễ cưới",
+  title: "Lễ cưới của tụi mình",
   description: "A frontend developer by profession, a creative at heart.",
   keywords: "Mohit Virli, Frontend Engineer, React Developer, Three.js, Creative Developer, Web Development, Angular, JavaScript, TypeScript, Portfolio",
   authors: [{ name: "Mohit Virli" }],
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Lễ cưới",
+    title: "Lễ cưới của tụi mình",
     description: "Frontend engineer by profession, creative at heart.",
     url: "https://wedding-zeta-dun.vercel.app/",
     siteName: "Lễ cưới",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lễ cướir",
+    title: "Lễ cưới",
     description: "Frontend engineer by profession, creative at heart.",
   },
   verification: {

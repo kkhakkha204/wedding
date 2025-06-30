@@ -655,9 +655,9 @@ export default function GroomPage() {
         {/* Title - Responsive */}
         <div
           ref={titleRef}
-          className="absolute top-[15px] sm:top-16 md:top-24 lg:top-12 2xl:top-[110px] left-1/2 transform -translate-x-1/2 z-50 parallax-element hidden sm:block"
+          className="absolute top-[15px] sm:top-16 md:top-24 lg:top-12 xl:top-8 2xl:top-[110px] left-1/2 transform -translate-x-1/2 z-10 parallax-element hidden sm:block"
         >
-          <h1 className="text-[30px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[100px] 2xl:text-[130px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
+          <h1 className="text-[30px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[60px] 2xl:text-[130px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
             Happy Wedding
           </h1>
         </div>
@@ -671,16 +671,16 @@ export default function GroomPage() {
           <div className="relative w-full max-w-[85%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[55%] 2xl:max-w-[40%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text - Responsive positioning */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-50px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[43px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
+              <p className="text-[43px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl 2xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
             </div>
 
             {/* Right Text - Responsive positioning */}
             <div className="absolute right-2 sm:right-4 md:right-8 lg:right-16 top-[-50px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[43px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Thu Trang</p>
+              <p className="text-[43px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl 2xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Thu Trang</p>
             </div>
 
             {/* Rectangle - Responsive size */}
-            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
+            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 xl:w-44 2xl:w-56 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
               {/* Logo - Responsive và không bị méo */}
               <div className="mt-5 sm:mt-10 md:mt-12 lg:mt-4 w-14 sm:w-20 md:w-24 lg:w-16 h-14 sm:h-20 md:h-24 lg:h-16 relative">
                 <Image 
@@ -695,7 +695,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[470px] sm:w-[400px] md:w-[500px] lg:w-[670px] 2xl:w-[950px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[470px] sm:w-[400px] md:w-[500px] lg:w-[670px] xl:w-[560px] 2xl:w-[950px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
@@ -716,16 +716,16 @@ export default function GroomPage() {
           <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Centered Text */}
             <div className="absolute left-1/2 top-[-80px] xl:top-[-60px] 2xl:top-[-80px] transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[22px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-[26px] drop-shadow-lg body-font text-center whitespace-nowrap">
+              <p className="text-[22px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-[22px] 2xl:text-[26px] drop-shadow-lg body-font text-center whitespace-nowrap">
                 Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br /><span className='name-font mt-2 text-[25px]'>Thank Youu!</span>
               </p>
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 xl:w-44 2xl:w-56 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
-              <div className="mt-1 sm:mt-6 md:mt-4 flex items-center justify-center">
+              <div className="mt-1 sm:mt-6 md:mt-4 xl:mt-0 flex items-center justify-center">
                 <svg
                   width="65"
                   height="65"
@@ -880,7 +880,7 @@ export default function GroomPage() {
               </div>
 
               {showQR && (
-  <div className="absolute -top-40 flex items-center rounded-t-[120px] justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
+  <div className="absolute -top-40 sm:-top-52 flex items-center rounded-t-[120px] justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
     {/* Backdrop overlay */}
     <div className="absolute bg-black bg-opacity-0 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
 
@@ -978,7 +978,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[380px] sm:w-[400px] md:w-[500px] lg:w-[540px] 2xl:w-[800px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[380px] sm:w-[400px] md:w-[500px] lg:w-[540px] xl:w-[450px] 2xl:w-[800px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang2.png)',
                 backgroundSize: 'contain',
@@ -1017,7 +1017,7 @@ export default function GroomPage() {
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
+            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 xl:w-44 2xl:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
   
               {/* Simple animated icon */}
               <div className="relative pt-4">
@@ -1035,7 +1035,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[420px] 2xl:w-[650px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[420px] xl:w-[360px] 2xl:w-[650px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang4.png)',
                 backgroundSize: 'contain',
