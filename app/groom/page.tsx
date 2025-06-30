@@ -551,6 +551,45 @@ export default function GroomPage() {
           background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
           animation: shimmer 2s infinite;
         }
+
+        @keyframes gentlePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes slowRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* If you want to add some hover effects for the QR container */
+.qr-container:hover .decorative-flower {
+  animation-duration: 2s;
+}
+
+/* Optional: Add a subtle breathing effect to the QR container */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.qr-container {
+  animation: breathe 6s ease-in-out infinite;
+}
       `}</style>
       
       {/* Enhanced Loading Screen */}
@@ -616,9 +655,9 @@ export default function GroomPage() {
         {/* Title - Responsive */}
         <div
           ref={titleRef}
-          className="absolute top-[30px] sm:top-16 md:top-24 lg:top-12 2xl:top-[110px] left-1/2 transform -translate-x-1/2 z-50 parallax-element"
+          className="absolute top-[15px] sm:top-16 md:top-24 lg:top-12 2xl:top-[110px] left-1/2 transform -translate-x-1/2 z-50 parallax-element hidden sm:block"
         >
-          <h1 className="text-[50px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[100px] 2xl:text-[130px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
+          <h1 className="text-[30px] sm:text-4xl md:text-6xl lg:text-8xl xl:text-[100px] 2xl:text-[130px] text-white text-center drop-shadow-2xl title-font whitespace-nowrap ">
             Happy Wedding
           </h1>
         </div>
@@ -629,21 +668,21 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 30 }}
         >
-          <div className="relative w-full max-w-[80%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[55%] 2xl:max-w-[40%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[85%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[55%] 2xl:max-w-[40%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text - Responsive positioning */}
-            <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-30px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-4xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
+            <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-50px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
+              <p className="text-[43px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Hồng Sơn</p>
             </div>
 
             {/* Right Text - Responsive positioning */}
-            <div className="absolute right-2 sm:right-4 md:right-8 lg:right-16 top-[-30px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-4xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Thu Trang</p>
+            <div className="absolute right-2 sm:right-4 md:right-8 lg:right-16 top-[-50px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
+              <p className="text-[43px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl mb-1 sm:mb-2 drop-shadow-lg name-font">Thu Trang</p>
             </div>
 
             {/* Rectangle - Responsive size */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-56 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
+            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 h-full bg-[#fcf8ef] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 fade-element backdrop-blur-sm">
               {/* Logo - Responsive và không bị méo */}
-              <div className="mt-8 sm:mt-10 md:mt-12 lg:mt-4 w-16 sm:w-20 md:w-24 lg:w-16 h-16 sm:h-20 md:h-24 lg:h-16 relative">
+              <div className="mt-5 sm:mt-10 md:mt-12 lg:mt-4 w-14 sm:w-20 md:w-24 lg:w-16 h-14 sm:h-20 md:h-24 lg:h-16 relative">
                 <Image 
                   src="/namelogo.png"
                   alt="Wedding Logo"
@@ -656,7 +695,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[550px] sm:w-[400px] md:w-[500px] lg:w-[670px] 2xl:w-[950px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[470px] sm:w-[400px] md:w-[500px] lg:w-[670px] 2xl:w-[950px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang1.png)',
                 backgroundSize: 'contain',
@@ -674,19 +713,19 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[65%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Centered Text */}
             <div className="absolute left-1/2 top-[-80px] xl:top-[-60px] 2xl:top-[-80px] transform -translate-x-1/2 -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[21px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-[26px] drop-shadow-lg body-font text-center whitespace-nowrap">
+              <p className="text-[22px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-[26px] drop-shadow-lg body-font text-center whitespace-nowrap">
                 Chạm vào bông hoa<br />để mừng cưới cho tụi mình nha.<br /><span className='name-font mt-2 text-[25px]'>Thank Youu!</span>
               </p>
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-56 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
+            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 h-full bg-[#343434] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center pt-4 sm:pt-6 md:pt-8 parallax-element fade-element backdrop-blur-sm">
 
               {/* Animated Flower */}
-              <div className="mt-4 sm:mt-6 md:mt-4 flex items-center justify-center">
+              <div className="mt-1 sm:mt-6 md:mt-4 flex items-center justify-center">
                 <svg
                   width="65"
                   height="65"
@@ -841,45 +880,105 @@ export default function GroomPage() {
               </div>
 
               {showQR && (
-                <div className="absolute -top-36 flex items-center rounded-t-[120px] justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
-                  {/* Backdrop overlay */}
-                  <div className="absolute bg-black bg-opacity-0 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
+  <div className="absolute -top-40 flex items-center rounded-t-[120px] justify-center animate-fade-in backdrop-blur-sm" style={{ zIndex: 60 }}>
+    {/* Backdrop overlay */}
+    <div className="absolute bg-black bg-opacity-0 rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px]"></div>
 
-                  {/* QR Container */}
-                  <div className="relative bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
-                    {/* QR Code */}
-                    <div className="w-48 h-48 sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
-                      <Image
-                        src="/qrkha1.PNG"
-                        alt="QR Code"
-                        width={192}
-                        height={192}
-                        className="w-full h-full object-contain p-2"
-                      />
-                      {/* Fallback */}
-                      <div className="hidden w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 items-center justify-center text-gray-500 text-sm text-center rounded-xl">
-                        <div className="space-y-2">
-                          <div className="w-8 h-8 bg-gray-400 rounded mx-auto opacity-50"></div>
-                          <div>QR Code</div>
-                        </div>
-                      </div>
-                    </div>
+    {/* QR Container */}
+    <div className="relative bg-white rounded-3xl shadow-2xl p-6 sm:p-8 border border-gray-100">
+      {/* Header Text */}
+      <div className="text-center">
+        <p className="text-[28px] text-gray-600 name-font">
+          Hồng Sơn
+        </p>
+      </div>
 
-                    {/* Subtle decoration */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
-                      <div className="absolute top-2 left-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-30"></div>
-                      <div className="absolute top-4 right-3 w-1 h-1 bg-[#7fc97f] rounded-full opacity-40"></div>
-                      <div className="absolute bottom-3 left-4 w-1.5 h-1.5 bg-[#90ee90] rounded-full opacity-20"></div>
-                      <div className="absolute bottom-2 right-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-25"></div>
-                    </div>
-                  </div>
-                </div>
-              )}
+      {/* QR Code */}
+      <div className="w-[160px] h-[160px] sm:w-48 sm:h-48 bg-gray-50 rounded-xl overflow-hidden shadow-inner">
+        <Image
+          src="/qrson.png"
+          alt="QR Code"
+          width={192}
+          height={192}
+          className="w-full h-full object-contain p-2"
+        />
+        {/* Fallback */}
+        <div className="hidden w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 items-center justify-center text-gray-500 text-sm text-center rounded-xl">
+          <div className="space-y-2">
+            <div className="w-8 h-8 bg-gray-400 rounded mx-auto opacity-50"></div>
+            <div>QR Code</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Decorative Flower at Bottom Right */}
+      <div className="absolute -bottom-2 -right-2 w-12 h-12 pointer-events-none">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 100 100"
+          style={{
+            filter: 'drop-shadow(0 0 8px rgba(244, 228, 188, 0.6))',
+            animation: 'gentlePulse 4s ease-in-out infinite'
+          }}
+        >
+          {/* Define gradients for the decorative flower */}
+          <defs>
+            <radialGradient id="decorativePetalGradient" cx="50%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#FFF8DC" />
+              <stop offset="40%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#DEB887" />
+            </radialGradient>
+            
+            <radialGradient id="decorativeCenterGradient" cx="35%" cy="35%" r="60%">
+              <stop offset="0%" stopColor="#FFFFFF" />
+              <stop offset="30%" stopColor="#f4e4bc" />
+              <stop offset="100%" stopColor="#F0E68C" />
+            </radialGradient>
+          </defs>
+
+          {/* Small decorative petals */}
+          <g style={{
+            transformOrigin: '50px 50px',
+            animation: 'slowRotate 30s linear infinite'
+          }}>
+            {Array.from({ length: 8 }, (_, i) => (
+              <ellipse
+                key={i}
+                cx="50"
+                cy="30"
+                rx="5"
+                ry="12"
+                fill="url(#decorativePetalGradient)"
+                opacity="0.9"
+                transform={`rotate(${i * 45} 50 50)`}
+                style={{ borderRadius: '50%' }}
+              />
+            ))}
+          </g>
+
+          {/* Center of decorative flower */}
+          <circle cx="50" cy="50" r="6" fill="url(#decorativeCenterGradient)" opacity="0.95" />
+          <circle cx="48" cy="47" r="1.5" fill="rgba(255,255,255,0.9)" opacity="0.8" />
+        </svg>
+      </div>
+
+      {/* Subtle decoration dots */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none">
+        <div className="absolute top-2 left-2 w-2 h-2 bg-[#a8d5a8] rounded-full opacity-30"></div>
+        <div className="absolute top-4 right-3 w-1 h-1 bg-[#7fc97f] rounded-full opacity-40"></div>
+        <div className="absolute bottom-3 left-4 w-1.5 h-1.5 bg-[#90ee90] rounded-full opacity-20"></div>
+        {/* Reduced opacity for bottom right dot since we have flower there */}
+        <div className="absolute bottom-8 right-8 w-1 h-1 bg-[#a8d5a8] rounded-full opacity-15"></div>
+      </div>
+    </div>
+  </div>
+)}
             </div>
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[460px] sm:w-[400px] md:w-[500px] lg:w-[540px] 2xl:w-[800px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[380px] sm:w-[400px] md:w-[500px] lg:w-[540px] 2xl:w-[800px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang2.png)',
                 backgroundSize: 'contain',
@@ -904,24 +1003,24 @@ export default function GroomPage() {
           className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
           style={{ zIndex: 20 }}
         >
-          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[80%] 2xl:max-w-[55%] h-[66vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[80%] 2xl:max-w-[55%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
             {/* Left Text */}
             <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
+              <p className="text-[17px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
               <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg xl:ml-40 body-font">Ngày 13-14.07.2025</p>
             </div>
 
             {/* Right Text */}
             <div className="absolute right-2 sm:right-4 md:right-8 lg:right-32 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 drop-shadow-lg body-font">Thôn Châu Lỗ, Xã Mai Đình,</p>
+              <p className="text-[17px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 drop-shadow-lg body-font">Thôn Châu Lỗ, Xã Mai Đình,</p>
               <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tỉnh Bắc Giang</p>
             </div>
 
             {/* Rectangle */}
-            <div className="relative w-44 sm:w-64 md:w-80 lg:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
+            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
   
               {/* Simple animated icon */}
-              <div className="relative pt-8">
+              <div className="relative pt-4">
                 <div className="bg-[#53484E] p-3 sm:p-5 md:p-4 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
                   <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-8 md:h-8 text-white animate-pulse" />
                 </div>
@@ -936,7 +1035,7 @@ export default function GroomPage() {
 
             {/* Overlay Image - Responsive positioning */}
             <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[350px] sm:w-[400px] md:w-[500px] lg:w-[420px] 2xl:w-[650px] h-full fade-element pointer-events-none"
+              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[420px] 2xl:w-[650px] h-full fade-element pointer-events-none"
               style={{
                 backgroundImage: 'url(/sontrang4.png)',
                 backgroundSize: 'contain',
@@ -968,7 +1067,7 @@ export default function GroomPage() {
         </div>
 
         {/* Scroll indicator - Responsive */}
-        <div className="absolute bottom-24 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-[#272727] text-center z-[500]">
+        <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-50 text-[#272727] text-center z-[500]">
           <div className="animate-bounce">
             <div className="w-4 h-5 sm:w-5 h-8 md:w-6 h-10 border-[1px] border-[#272727] rounded-full mx-auto mb-1 sm:mb-2">
               <div className="w-[1px] h-2 sm:w-1 h-2 bg-[#272727] rounded-full mx-auto mt-1 sm:mt-2 animate-pulse"></div>
