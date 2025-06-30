@@ -235,14 +235,77 @@ const Experience = () => {
         ));
       }
 
-      // Animate click indicators (only on mobile)
+      // Animate click indicators (only on mobile) - Enhanced animations
       if (isMobile && leftIndicatorRef.current && rightIndicatorRef.current) {
-        // Pulsing animation for indicators
-        const pulseScale = 1 + Math.sin(time * 3) * 0.2;
-        const pulseOpacity = 0.6 + Math.sin(time * 2) * 0.3;
+        // Sophisticated pulsing animation with multiple waves
+        const pulseScale1 = 1 + Math.sin(time * 2.5) * 0.15;
+        const pulseScale2 = 1 + Math.sin(time * 3.2) * 0.1;
+        const pulseScale3 = 1 + Math.cos(time * 2.8) * 0.12;
         
-        leftIndicatorRef.current.scale.setScalar(pulseScale);
-        rightIndicatorRef.current.scale.setScalar(pulseScale);
+        // Breathing opacity effect
+        const breathingOpacity = 0.7 + Math.sin(time * 1.8) * 0.2;
+        const glowOpacity = 0.4 + Math.sin(time * 2.2) * 0.3;
+        
+        // Rotation animation for outer rings
+        const rotationSpeed = time * 0.5;
+        
+        // Apply animations to left indicator
+        leftIndicatorRef.current.scale.setScalar(pulseScale1);
+        leftIndicatorRef.current.rotation.z = rotationSpeed;
+        
+        // Apply different scales to children elements
+        if (leftIndicatorRef.current.children.length >= 4) {
+          // Outer glow ring
+          leftIndicatorRef.current.children[0].scale.setScalar(pulseScale2);
+          if ('material' in leftIndicatorRef.current.children[0] && leftIndicatorRef.current.children[0].material) {
+            (leftIndicatorRef.current.children[0].material as THREE.MeshBasicMaterial).opacity = glowOpacity * 0.3;
+          }
+          
+          // Middle ring
+          leftIndicatorRef.current.children[1].scale.setScalar(pulseScale3);
+          leftIndicatorRef.current.children[1].rotation.z = -rotationSpeed * 1.2;
+          if ('material' in leftIndicatorRef.current.children[1] && leftIndicatorRef.current.children[1].material) {
+            (leftIndicatorRef.current.children[1].material as THREE.MeshBasicMaterial).opacity = breathingOpacity * 0.6;
+          }
+          
+          // Inner core
+          leftIndicatorRef.current.children[2].scale.setScalar(1 + Math.sin(time * 4) * 0.05);
+          if ('material' in leftIndicatorRef.current.children[2] && leftIndicatorRef.current.children[2].material) {
+            (leftIndicatorRef.current.children[2].material as THREE.MeshBasicMaterial).opacity = breathingOpacity;
+          }
+          
+          // Center dot
+          leftIndicatorRef.current.children[3].scale.setScalar(1 + Math.cos(time * 5) * 0.08);
+        }
+        
+        // Apply animations to right indicator (slightly offset for variety)
+        rightIndicatorRef.current.scale.setScalar(pulseScale2);
+        rightIndicatorRef.current.rotation.z = -rotationSpeed * 0.8;
+        
+        // Apply different scales to children elements
+        if (rightIndicatorRef.current.children.length >= 4) {
+          // Outer glow ring
+          rightIndicatorRef.current.children[0].scale.setScalar(pulseScale3);
+          if ('material' in rightIndicatorRef.current.children[0] && rightIndicatorRef.current.children[0].material) {
+            (rightIndicatorRef.current.children[0].material as THREE.MeshBasicMaterial).opacity = glowOpacity * 0.3;
+          }
+          
+          // Middle ring
+          rightIndicatorRef.current.children[1].scale.setScalar(pulseScale1);
+          rightIndicatorRef.current.children[1].rotation.z = rotationSpeed * 1.5;
+          if ('material' in rightIndicatorRef.current.children[1] && rightIndicatorRef.current.children[1].material) {
+            (rightIndicatorRef.current.children[1].material as THREE.MeshBasicMaterial).opacity = breathingOpacity * 0.6;
+          }
+          
+          // Inner core
+          rightIndicatorRef.current.children[2].scale.setScalar(1 + Math.cos(time * 4.2) * 0.05);
+          if ('material' in rightIndicatorRef.current.children[2] && rightIndicatorRef.current.children[2].material) {
+            (rightIndicatorRef.current.children[2].material as THREE.MeshBasicMaterial).opacity = breathingOpacity;
+          }
+          
+          // Center dot
+          rightIndicatorRef.current.children[3].scale.setScalar(1 + Math.sin(time * 4.8) * 0.08);
+        }
         
         // Update indicator positions to follow images
         leftIndicatorRef.current.position.x = leftImageRef.current.position.x + imageWidth / 2 - 0.3;
@@ -252,14 +315,6 @@ const Experience = () => {
         rightIndicatorRef.current.position.x = rightImageRef.current.position.x - imageWidth / 2 + 0.3;
         rightIndicatorRef.current.position.y = rightImageRef.current.position.y - containerHeight / 2 + 0.3;
         rightIndicatorRef.current.position.z = rightImageRef.current.position.z + 0.1;
-
-        // Type-safe opacity handling for indicators
-        if ('material' in leftIndicatorRef.current && leftIndicatorRef.current.material && 'opacity' in leftIndicatorRef.current.material) {
-          (leftIndicatorRef.current.material as THREE.MeshBasicMaterial).opacity = pulseOpacity;
-        }
-        if ('material' in rightIndicatorRef.current && rightIndicatorRef.current.material && 'opacity' in rightIndicatorRef.current.material) {
-          (rightIndicatorRef.current.material as THREE.MeshBasicMaterial).opacity = pulseOpacity;
-        }
       }
 
       // Animate wedding message
@@ -442,32 +497,100 @@ const Experience = () => {
               Bùi Thu Trang
             </Text>
 
-            {/* Mobile Click Indicators */}
+            {/* Mobile Click Indicators - Enhanced Design */}
             {isMobile && (
               <>
-                <mesh
+                {/* Left Indicator Group */}
+                <group
                   ref={leftIndicatorRef}
                   position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)) + imageWidth / 2 - 0.3, -containerHeight / 2 + 0.3, 0.1]}
                 >
-                  <circleGeometry args={[0.1, 16]} />
-                  <meshBasicMaterial 
-                    color="#000000" // Đổi từ "#ffffff" thành "#000000"
-                    transparent 
-                    opacity={0.8}
-                  />
-                </mesh>
+                  {/* Outer glow ring */}
+                  <mesh>
+                    <ringGeometry args={[0.12, 0.16, 32]} />
+                    <meshBasicMaterial 
+                      color="#7f6f60"
+                      transparent 
+                      opacity={0.3}
+                    />
+                  </mesh>
+                  
+                  {/* Middle ring */}
+                  <mesh>
+                    <ringGeometry args={[0.08, 0.12, 32]} />
+                    <meshBasicMaterial 
+                      color="#3c2c1f"
+                      transparent 
+                      opacity={0.6}
+                    />
+                  </mesh>
+                  
+                  {/* Inner core */}
+                  <mesh>
+                    <circleGeometry args={[0.08, 32]} />
+                    <meshBasicMaterial 
+                      color="#7f6f60"
+                      transparent 
+                      opacity={0.9}
+                    />
+                  </mesh>
+                  
+                  {/* Center dot */}
+                  <mesh position={[0, 0, 0.01]}>
+                    <circleGeometry args={[0.03, 16]} />
+                    <meshBasicMaterial 
+                      color="#ffffff"
+                      transparent 
+                      opacity={1}
+                    />
+                  </mesh>
+                </group>
 
-                <mesh
+                {/* Right Indicator Group */}
+                <group
                   ref={rightIndicatorRef}
                   position={[imageWidth / 2 + (isMobile ? 1 : 1.5) - imageWidth / 2 + 0.3, -containerHeight / 2 + 0.3, 0.1]}
                 >
-                  <circleGeometry args={[0.1, 16]} />
-                  <meshBasicMaterial 
-                    color="#000000" // Đổi từ "#ffffff" thành "#000000"
-                    transparent 
-                    opacity={0.8}
-                  />
-                </mesh>
+                  {/* Outer glow ring */}
+                  <mesh>
+                    <ringGeometry args={[0.12, 0.16, 32]} />
+                    <meshBasicMaterial 
+                      color="#7f6f60"
+                      transparent 
+                      opacity={0.3}
+                    />
+                  </mesh>
+                  
+                  {/* Middle ring */}
+                  <mesh>
+                    <ringGeometry args={[0.08, 0.12, 32]} />
+                    <meshBasicMaterial 
+                      color="#3c2c1f"
+                      transparent 
+                      opacity={0.6}
+                    />
+                  </mesh>
+                  
+                  {/* Inner core */}
+                  <mesh>
+                    <circleGeometry args={[0.08, 32]} />
+                    <meshBasicMaterial 
+                      color="#7f6f60"
+                      transparent 
+                      opacity={0.9}
+                    />
+                  </mesh>
+                  
+                  {/* Center dot */}
+                  <mesh position={[0, 0, 0.01]}>
+                    <circleGeometry args={[0.03, 16]} />
+                    <meshBasicMaterial 
+                      color="#ffffff"
+                      transparent 
+                      opacity={1}
+                    />
+                  </mesh>
+                </group>
 
                 <Text
                   ref={weddingMessageRef}
