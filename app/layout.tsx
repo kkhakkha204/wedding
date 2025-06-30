@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Lễ cưới của tụi mình",
-    description: "Chúng tôi rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng chúng tôi tạo nên những kỷ niệm đẹp nhất!",
+    description: "Tụi mình rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng tụi mình tạo nên những kỷ niệm đẹp nhất!",
     url: "https://wedding-zeta-dun.vercel.app/",
     siteName: "Lễ cưới của tụi mình",
     locale: "vi_VN",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Lễ cưới của tụi mình",
-    description: "Chúng tôi rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng chúng tôi tạo nên những kỷ niệm đẹp nhất!",
+    description: "Tụi mình rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng tụi mình tạo nên những kỷ niệm đẹp nhất!",
     images: ["/opengraph-image.png"], // hoặc .png
   },
   verification: {
