@@ -15,11 +15,11 @@ const vercettiFont = localFont({
 
 export const metadata: Metadata = {
   title: "Lễ cưới của tụi mình",
-  description: "A frontend developer by profession, a creative at heart.",
-  keywords: "Mohit Virli, Frontend Engineer, React Developer, Three.js, Creative Developer, Web Development, Angular, JavaScript, TypeScript, Portfolio",
-  authors: [{ name: "Mohit Virli" }],
-  creator: "Mohit Virli",
-  publisher: "Mohit Virli",
+  description: "Chúng tôi rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng chúng tôi tạo nên những kỷ niệm đẹp nhất!",
+  keywords: "lễ cưới, đám cưới, wedding, thiệp cưới online, lễ thành hôn, kỷ niệm đám cưới, tiệc cưới",
+  authors: [{ name: "Cô dâu & Chú rể" }],
+  creator: "Wedding Couple",
+  publisher: "Wedding Website",
   formatDetection: {
     email: false,
     address: false,
@@ -37,16 +37,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Lễ cưới của tụi mình",
-    description: "Frontend engineer by profession, creative at heart.",
+    description: "Chúng tôi rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng chúng tôi tạo nên những kỷ niệm đẹp nhất!",
     url: "https://wedding-zeta-dun.vercel.app/",
-    siteName: "Lễ cưới",
-    locale: "en_US",
+    siteName: "Lễ cưới của tụi mình",
+    locale: "vi_VN",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image.jpg", // hoặc .png
+        width: 1200,
+        height: 630,
+        alt: "Lễ cưới của tụi mình",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lễ cưới",
-    description: "Frontend engineer by profession, creative at heart.",
+    title: "Lễ cưới của tụi mình",
+    description: "Chúng tôi rất vui được chia sẻ ngày trọng đại nhất trong cuộc đời. Hãy cùng chúng tôi tạo nên những kỷ niệm đẹp nhất!",
+    images: ["/opengraph-image.png"], // hoặc .png
   },
   verification: {
     google: "GsRYY-ivL0F_VKkfs5KAeToliqz0gCrRAJKKmFkAxBA",
@@ -66,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overscroll-y-none">
+    <html lang="vi" className="overscroll-y-none">
       <body
         className={`${soriaFont.variable} ${vercettiFont.variable} font-sans antialiased`}
       >
