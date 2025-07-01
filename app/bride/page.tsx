@@ -889,7 +889,7 @@ export default function GroomPage() {
       {/* Header Text */}
       <div className="text-center">
         <p className="text-[28px] text-gray-600 name-font">
-          Hồng Sơn
+          Thu Trang
         </p>
       </div>
 

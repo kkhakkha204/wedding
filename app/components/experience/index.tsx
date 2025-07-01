@@ -26,8 +26,8 @@ const Experience = () => {
   const [rightHovered, setRightHovered] = useState(false);
 
   // Load textures for the images
-  const leftTexture = useTexture('./bride3.jpg');
-  const rightTexture = useTexture('./bride3.jpg');
+  const leftTexture = useTexture('./groommain.jpg');
+  const rightTexture = useTexture('./bridemain.jpg');
 
   // Setup texture để cover (không bị stretch)
   useEffect(() => {
@@ -53,8 +53,16 @@ const Experience = () => {
   // Font props cho title trên ảnh - đổi màu thành đen
   const imageTitleProps = {
     font: "./a2.otf",
-    fontSize: isMobile ? 0.18 : 0.2,
+    fontSize: isMobile ? 0.26 : 0.3,
     color: 'black', // Đổi từ 'white' thành 'black'
+    anchorX: 'center' as const,
+    anchorY: 'middle' as const,
+  };
+  // Font props cho title trên ảnh - đổi màu thành đen
+  const imageTitle2Props = {
+    font: "./a2.otf",
+    fontSize: isMobile ? 0.26 : 0.3,
+    color: 'white', // Đổi từ 'white' thành 'black'
     anchorX: 'center' as const,
     anchorY: 'middle' as const,
   };
@@ -206,14 +214,14 @@ const Experience = () => {
         delta
       );
 
-      // Sync title positions với image positions
+      // Sync title positions với image positions - DI CHUYỂN XUỐNG BOTTOM
       if (leftTitleRef.current && rightTitleRef.current) {
         leftTitleRef.current.position.x = leftImageRef.current.position.x;
-        leftTitleRef.current.position.y = leftImageRef.current.position.y + containerHeight / 2 - 0.3;
+        leftTitleRef.current.position.y = leftImageRef.current.position.y - containerHeight / 2 + 0.3; // Đổi từ + thành -
         leftTitleRef.current.position.z = leftImageRef.current.position.z + 0.1;
         
         rightTitleRef.current.position.x = rightImageRef.current.position.x;
-        rightTitleRef.current.position.y = rightImageRef.current.position.y + containerHeight / 2 - 0.3;
+        rightTitleRef.current.position.y = rightImageRef.current.position.y - containerHeight / 2 + 0.3; // Đổi từ + thành -
         rightTitleRef.current.position.z = rightImageRef.current.position.z + 0.1;
 
         // Apply hover effects to titles
@@ -235,7 +243,7 @@ const Experience = () => {
         ));
       }
 
-      // Animate click indicators (only on mobile) - Enhanced animations
+      // Animate click indicators (only on mobile) - Enhanced animations - DI CHUYỂN LÊN TOP
       if (isMobile && leftIndicatorRef.current && rightIndicatorRef.current) {
         // Sophisticated pulsing animation with multiple waves
         const pulseScale1 = 1 + Math.sin(time * 2.5) * 0.15;
@@ -307,13 +315,13 @@ const Experience = () => {
           rightIndicatorRef.current.children[3].scale.setScalar(1 + Math.sin(time * 4.8) * 0.08);
         }
         
-        // Update indicator positions to follow images
+        // Update indicator positions to follow images - DI CHUYỂN LÊN TOP
         leftIndicatorRef.current.position.x = leftImageRef.current.position.x + imageWidth / 2 - 0.3;
-        leftIndicatorRef.current.position.y = leftImageRef.current.position.y - containerHeight / 2 + 0.3;
+        leftIndicatorRef.current.position.y = leftImageRef.current.position.y + containerHeight / 2 - 0.3; // Đổi từ - thành +
         leftIndicatorRef.current.position.z = leftImageRef.current.position.z + 0.1;
         
         rightIndicatorRef.current.position.x = rightImageRef.current.position.x - imageWidth / 2 + 0.3;
-        rightIndicatorRef.current.position.y = rightImageRef.current.position.y - containerHeight / 2 + 0.3;
+        rightIndicatorRef.current.position.y = rightImageRef.current.position.y + containerHeight / 2 - 0.3; // Đổi từ - thành +
         rightIndicatorRef.current.position.z = rightImageRef.current.position.z + 0.1;
       }
 
@@ -447,7 +455,7 @@ const Experience = () => {
 
         <group position={[0, -1, 0]} ref={groupRef}>
           <group position={[0, -0.5, 0.1]}>
-            {/* Left Image with Cover Effect */}
+            {/* Left Image with Cover Effect - GIẢM ĐỘ SÁNG */}
             <mesh
               ref={leftImageRef}
               position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)), 0, 0]}
@@ -459,20 +467,20 @@ const Experience = () => {
               <meshBasicMaterial 
                 map={leftTexture} 
                 transparent 
-                opacity={1}
+                opacity={0.8} // Giảm từ 1 xuống 0.7 để giảm độ sáng
               />
             </mesh>
 
-            {/* Left Image Title */}
+            {/* Left Image Title - ĐI CHUYỂN XUỐNG BOTTOM */}
             <Text
               ref={leftTitleRef}
-              {...imageTitleProps}
-              position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)), containerHeight / 2 - 0.3, 0.01]}
+              {...imageTitle2Props}
+              position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)), -containerHeight / 2 + 0.3, 0.01]} // Đổi từ + thành -
             >
               Ngô Hồng Sơn
             </Text>
 
-            {/* Right Image with Cover Effect */}
+            {/* Right Image with Cover Effect - GIẢM ĐỘ SÁNG */}
             <mesh
               ref={rightImageRef}
               position={[imageWidth / 2 + (isMobile ? 1 : 1.5), 0, 0]}
@@ -484,26 +492,26 @@ const Experience = () => {
               <meshBasicMaterial 
                 map={rightTexture} 
                 transparent 
-                opacity={1}
+                opacity={0.8} // Giảm từ 1 xuống 0.7 để giảm độ sáng
               />
             </mesh>
 
-            {/* Right Image Title */}
+            {/* Right Image Title - ĐI CHUYỂN XUỐNG BOTTOM */}
             <Text
               ref={rightTitleRef}
               {...imageTitleProps}
-              position={[imageWidth / 2 + (isMobile ? 1 : 1.5), containerHeight / 2 - 0.3, 0.01]}
+              position={[imageWidth / 2 + (isMobile ? 1 : 1.5), -containerHeight / 2 + 0.3, 0.01]} // Đổi từ + thành -
             >
               Bùi Thu Trang
             </Text>
 
-            {/* Mobile Click Indicators - Enhanced Design */}
+            {/* Mobile Click Indicators - Enhanced Design - DI CHUYỂN LÊN TOP */}
             {isMobile && (
               <>
-                {/* Left Indicator Group */}
+                {/* Left Indicator Group - DI CHUYỂN LÊN TOP */}
                 <group
                   ref={leftIndicatorRef}
-                  position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)) + imageWidth / 2 - 0.3, -containerHeight / 2 + 0.3, 0.1]}
+                  position={[-(imageWidth / 2 + (isMobile ? 1 : 1.5)) + imageWidth / 2 - 0.3, containerHeight / 2 - 0.3, 0.1]} // Đổi từ - thành +
                 >
                   {/* Outer glow ring */}
                   <mesh>
@@ -546,10 +554,10 @@ const Experience = () => {
                   </mesh>
                 </group>
 
-                {/* Right Indicator Group */}
+                {/* Right Indicator Group - DI CHUYỂN LÊN TOP */}
                 <group
                   ref={rightIndicatorRef}
-                  position={[imageWidth / 2 + (isMobile ? 1 : 1.5) - imageWidth / 2 + 0.3, -containerHeight / 2 + 0.3, 0.1]}
+                  position={[imageWidth / 2 + (isMobile ? 1 : 1.5) - imageWidth / 2 + 0.3, containerHeight / 2 - 0.3, 0.1]} // Đổi từ - thành +
                 >
                   {/* Outer glow ring */}
                   <mesh>
