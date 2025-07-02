@@ -16,6 +16,8 @@ const Experience = () => {
   const rightTitleRef = useRef<THREE.Mesh>(null);
   const leftIndicatorRef = useRef<THREE.Mesh>(null);
   const rightIndicatorRef = useRef<THREE.Mesh>(null);
+  const leftViewMoreRef = useRef<THREE.Mesh>(null);
+  const rightViewMoreRef = useRef<THREE.Mesh>(null);
   const weddingMessageRef = useRef<THREE.Mesh>(null);
   const data = useScroll();
   const isActive = usePortalStore((state) => !!state.activePortalId);
@@ -74,6 +76,24 @@ const Experience = () => {
     color: '#ffffff',
     anchorX: 'center' as const,
     anchorY: 'middle' as const,
+  };
+
+  // Props cho "xem thêm" text - left (white)
+  const viewMoreLeftProps = {
+    font: "./a2.otf",
+    fontSize: isMobile ? 0.13 : 0.06,
+    color: '#ffffff',
+    anchorX: 'left' as const,
+    anchorY: 'top' as const,
+  };
+
+  // Props cho "xem thêm" text - right (black)
+  const viewMoreRightProps = {
+    font: "./a2.otf",
+    fontSize: isMobile ? 0.13 : 0.06,
+    color: '#000000',
+    anchorX: 'right' as const,
+    anchorY: 'top' as const,
   };
 
   useFrame((state, delta) => {
@@ -323,6 +343,30 @@ const Experience = () => {
         rightIndicatorRef.current.position.x = rightImageRef.current.position.x - imageWidth / 2 + 0.3;
         rightIndicatorRef.current.position.y = rightImageRef.current.position.y + containerHeight / 2 - 0.3; // Đổi từ - thành +
         rightIndicatorRef.current.position.z = rightImageRef.current.position.z + 0.1;
+
+        // Update "xem thêm" text positions
+        if (leftViewMoreRef.current && rightViewMoreRef.current) {
+          // Left "xem thêm" text - positioned at top left of left image
+          leftViewMoreRef.current.position.x = leftImageRef.current.position.x - imageWidth / 2 + 0.1;
+          leftViewMoreRef.current.position.y = leftImageRef.current.position.y + containerHeight / 2 - 0.1;
+          leftViewMoreRef.current.position.z = leftImageRef.current.position.z + 0.1;
+
+          // Right "xem thêm" text - positioned at top right of right image
+          rightViewMoreRef.current.position.x = rightImageRef.current.position.x + imageWidth / 2 - 0.1;
+          rightViewMoreRef.current.position.y = rightImageRef.current.position.y + containerHeight / 2 - 0.1;
+          rightViewMoreRef.current.position.z = rightImageRef.current.position.z + 0.1;
+
+          // Apply gentle animation to "xem thêm" texts
+          const textOpacity = 0.8 + Math.sin(time * 1.5) * 0.15;
+          
+          if ('fillOpacity' in leftViewMoreRef.current) {
+            (leftViewMoreRef.current as THREE.Mesh & { fillOpacity: number }).fillOpacity = textOpacity;
+          }
+          
+          if ('fillOpacity' in rightViewMoreRef.current) {
+            (rightViewMoreRef.current as THREE.Mesh & { fillOpacity: number }).fillOpacity = textOpacity;
+          }
+        }
       }
 
       // Animate wedding message
@@ -554,6 +598,15 @@ const Experience = () => {
                   </mesh>
                 </group>
 
+                {/* Left "xem thêm" text */}
+                <Text
+                  ref={leftViewMoreRef}
+                  {...viewMoreLeftProps}
+                  position={[0, 0, 0.01]} // Position will be updated in useFrame
+                >
+                  xem thêm
+                </Text>
+
                 {/* Right Indicator Group - DI CHUYỂN LÊN TOP */}
                 <group
                   ref={rightIndicatorRef}
@@ -599,6 +652,15 @@ const Experience = () => {
                     />
                   </mesh>
                 </group>
+
+                {/* Right "xem thêm" text */}
+                <Text
+                  ref={rightViewMoreRef}
+                  {...viewMoreRightProps}
+                  position={[0, 0, 0.01]} // Position will be updated in useFrame
+                >
+                  xem thêm
+                </Text>
 
                 <Text
                   ref={weddingMessageRef}
