@@ -998,61 +998,68 @@ export default function GroomPage() {
         </div>
 
         {/* Section 3 - Responsive */}
-        <div
-          ref={section3Ref}
-          className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
-          style={{ zIndex: 20 }}
-        >
-          <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[80%] 2xl:max-w-[55%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
-            {/* Left Text */}
-            <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[17px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Chủ nhật / Thứ Hai</p>
-              <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg xl:ml-40 body-font">Ngày 13-14.07.2025</p>
-            </div>
-
-            {/* Right Text */}
-            <div className="absolute right-2 sm:right-4 md:right-8 lg:right-32 top-[-60px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
-              <p className="text-[17px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 drop-shadow-lg body-font">Thôn Bách Nhẫn, Xã Mai trung,</p>
-              <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">Huyện Hiệp Hoà, Tỉnh Bắc Giang</p>
-            </div>
-
-            {/* Rectangle */}
-            <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 xl:w-44 2xl:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
-  
-              {/* Simple animated icon */}
-              <div className="relative pt-4">
-                <div className="bg-[#53484E] p-3 sm:p-5 md:p-4 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
-                  <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-8 md:h-8 text-white animate-pulse" />
-                </div>
-                
-                {/* Subtle pulse ring */}
-                <div className="absolute inset-0 -m-1 border-2 border-[#53484E] rounded-full animate-ping opacity-15"></div>
-              </div>
-
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#53484E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-[inherit]"></div>
-            </div>
-
-            {/* Overlay Image - Responsive positioning */}
-            <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[420px] xl:w-[360px] 2xl:w-[650px] h-full fade-element pointer-events-none"
-              style={{
-                backgroundImage: 'url(/sontrang4.png)',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center bottom',
-                zIndex: 40
-              }}
-            />
-
-            {/* Click Area */}
-            <div
-              className="absolute top-0 left-1/2 transform -translate-x-1/2 w-44 sm:w-60 md:w-76 lg:w-80 h-full cursor-pointer transition-all duration-500 hover:scale-105 fade-element"
-              onClick={handleSection3Click}
-              style={{ zIndex: 45 }}
-            />
-          </div>
+                <div
+                  ref={section3Ref}
+                  className="absolute inset-0 flex items-end justify-center pb-4 sm:pb-8 md:pb-0"
+                  style={{ zIndex: 20 }}
+                >
+                  <div className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[80%] 2xl:max-w-[55%] h-[68vh] sm:h-[60vh] md:h-[70vh] flex items-center justify-center">
+                    {/* Left Text */}
+                    <div className="absolute left-2 sm:left-4 md:left-8 lg:left-16 top-[-90px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
+                      <p className="text-[17px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 xl:ml-40 drop-shadow-lg body-font">Tiệc thân mật vào hồi</p>
+                      <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg xl:ml-40 body-font">17h00 - 13/07/2025</p>
+                    </div>
+        
+                    {/* Right Text */}
+                    <div className="absolute right-2 sm:right-4 md:right-8 lg:right-32 top-[-90px] sm:top-1/3 transform -translate-y-1/2 text-white parallax-element fade-element">
+                      <p className="text-[17px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 drop-shadow-lg body-font">Tổ chức hôn lễ vào hồi</p>
+                      <p className="text-base sm:text-sm md:text-base opacity-90 drop-shadow-lg body-font">11h00 - 14/07/2025</p>
+                    </div>
+        
+                    {/* Middle Text - Centered and positioned lower */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 top-[-40px] sm:top-[-100px] text-white parallax-element fade-element text-center">
+          <p className="text-[14px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-3xl sm:mb-2 drop-shadow-lg body-font whitespace-nowrap">
+            Thôn Bách Nhẫn, Xã Mai trung, Huyện Hiệp Hoà, Tỉnh Bắc Giang
+          </p>
         </div>
+        
+                    {/* Rectangle */}
+                    <div className="relative w-36 sm:w-64 md:w-80 lg:w-56 xl:w-44 2xl:w-56 h-full bg-gradient-to-b from-[#fcf8ef] via-[#faf6ed] to-[#f8f4e9] rounded-t-[120px] sm:rounded-t-[120px] md:rounded-t-[160px] lg:rounded-t-[180px] shadow-2xl flex flex-col items-center  parallax-element fade-element backdrop-blur-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-3xl hover:scale-105">
+          
+                      {/* Simple animated icon */}
+                      <div className="relative pt-4">
+                        <div className="bg-[#53484E] p-3 sm:p-5 md:p-4 rounded-full shadow-lg transform transition-all duration-500 group-hover:scale-110">
+                          <MapPinHouse className="w-6 h-6 sm:w-10 sm:h-10 md:w-8 md:h-8 text-white animate-pulse" />
+                        </div>
+                        
+                        {/* Subtle pulse ring */}
+                        <div className="absolute inset-0 -m-1 border-2 border-[#53484E] rounded-full animate-ping opacity-15"></div>
+                      </div>
+        
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#53484E]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-[inherit]"></div>
+                    </div>
+        
+                    {/* Overlay Image - Responsive positioning */}
+                    <div
+                      className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[420px] xl:w-[360px] 2xl:w-[650px] h-full fade-element pointer-events-none"
+                      style={{
+                        backgroundImage: 'url(/sontrang4.png)',
+                        backgroundSize: 'contain',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center bottom',
+                        zIndex: 40
+                      }}
+                    />
+        
+                    {/* Click Area */}
+                    <div
+                      className="absolute top-0 left-1/2 transform -translate-x-1/2 w-44 sm:w-60 md:w-76 lg:w-80 h-full cursor-pointer transition-all duration-500 hover:scale-105 fade-element"
+                      onClick={handleSection3Click}
+                      style={{ zIndex: 45 }}
+                    />
+                  </div>
+                </div>
 
         {/* Section Indicators - Responsive */}
         <div className="fixed right-4 sm:right-6 md:right-8 top-1/2 transform -translate-y-1/2 z-50 flex flex-col space-y-2 sm:space-y-3 md:space-y-4">
